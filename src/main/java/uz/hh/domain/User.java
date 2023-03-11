@@ -45,6 +45,9 @@ public class User {
     @Column(nullable = false)
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_chats"
+    )
     private Set<Chat> chats;
 
 
