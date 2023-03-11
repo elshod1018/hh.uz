@@ -27,10 +27,10 @@ public class SecurityConfigurer {
             "/upload",
             "/auth/register"
     };
-    private final AuthUserDetailsService authUserUserDetailsService;
+    private final UserDetailsService authUserUserDetailsService;
     private final AuthenticationFailureHandler authenticationFailureHandler;
 
-    public SecurityConfigurer(AuthUserDetailsService authUserUserDetailsService,
+    public SecurityConfigurer(UserDetailsService authUserUserDetailsService,
                               AuthenticationFailureHandler authenticationFailureHandler) {
         this.authUserUserDetailsService = authUserUserDetailsService;
         this.authenticationFailureHandler = authenticationFailureHandler;
