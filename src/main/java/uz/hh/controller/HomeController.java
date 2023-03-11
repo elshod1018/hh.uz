@@ -16,21 +16,21 @@ public class HomeController {
         this.userSession = userSession;
     }
 
-//    @GetMapping("/home")
-//    public String hasAdminRole(Model model) {
-//        //var s = "{bcrypt}$sdjvbhksnfbpgdhjnvlworhgeirnkvmd";
-//        //var ss = "{noop}passwor";
-//        //System.out.println("userSession.getUser().getId() = " + userSession.getId());
-//        return "home";
-//    }
+    @GetMapping("/home")
+    public String hasAdminRole(Model model) {
+        //var s = "{bcrypt}$sdjvbhksnfbpgdhjnvlworhgeirnkvmd";
+        //var ss = "{noop}passwor";
+        //System.out.println("userSession.getUser().getId() = " + userSession.getId());
+        return "home";
+    }
 
-    @GetMapping({"/","/home"})
-    public String homePage() {
+//    @GetMapping("/home2")
+//    public String homePage2() {
 //        if (new Random().nextBoolean()) {
 //            throw new CustomRuntimeException("Just For Fun Exception");
 //        }
-        return "home";
-    }
+//        return "main2";
+//    }
 
 /*    @ExceptionHandler(CustomRuntimeException.class)
     public String exception(Model model, CustomRuntimeException e) {
