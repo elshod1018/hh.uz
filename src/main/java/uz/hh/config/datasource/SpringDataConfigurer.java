@@ -22,7 +22,6 @@ import java.util.Properties;
 @PropertySource("classpath:application.properties")
 @EnableJpaRepositories("uz.hh")
 public class SpringDataConfigurer {
-
     private final Environment env;
 
     @Bean
