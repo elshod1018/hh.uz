@@ -14,12 +14,13 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
+import java.util.Objects;
 import java.util.Properties;
 
 @Configuration
 @RequiredArgsConstructor
 @PropertySource("classpath:application.properties")
-@EnableJpaRepositories("dev.jlkeesh")
+@EnableJpaRepositories("uz.hh")
 public class SpringDataConfigurer {
 
     private final Environment env;
@@ -50,7 +51,7 @@ public class SpringDataConfigurer {
 
     @Bean
     public PlatformTransactionManager transactionManager(LocalContainerEntityManagerFactoryBean entityManagerFactoryBean) {
-        return new JpaTransactionManager(entityManagerFactoryBean.getObject());
+        return new JpaTransactionManager(Objects.requireNonNull(entityManagerFactoryBean.getObject()));
     }
 
 

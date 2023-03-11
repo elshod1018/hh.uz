@@ -57,6 +57,4 @@ public class User {
 
 }
 
-enum Status {
-    NOT_ACTIVE, ACTIVE, BLOCKED
-}
+
