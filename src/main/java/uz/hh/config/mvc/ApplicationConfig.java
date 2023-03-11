@@ -14,7 +14,6 @@ public class ApplicationConfig extends AbstractAnnotationConfigDispatcherServlet
     protected Class<?>[] getServletConfigClasses() {
         return new Class[]{MvcConfiguration.class};
     }
-
     @Override
     protected String[] getServletMappings() {
         return new String[]{"/"};
@@ -22,6 +21,6 @@ public class ApplicationConfig extends AbstractAnnotationConfigDispatcherServlet
 
     @Override
     protected void customizeRegistration(ServletRegistration.Dynamic registration) {
-        registration.setMultipartConfig(new MultipartConfigElement(""));
+        registration.setMultipartConfig(new MultipartConfigElement("/home/elshod/apps/hh/upload/"));
     }
 }

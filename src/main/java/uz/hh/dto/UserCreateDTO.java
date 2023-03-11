@@ -1,4 +1,5 @@
 package uz.hh.dto;
 
-public class UserCreateDTO {
+public record UserCreateDTO(String username, String password,
+                            String confirmPassword, String email) {
 }
