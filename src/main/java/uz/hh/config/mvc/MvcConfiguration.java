@@ -1,5 +1,6 @@
 package uz.hh.config.mvc;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,13 +17,10 @@ import org.thymeleaf.templatemode.TemplateMode;
 @Configuration
 @EnableWebMvc
 @ComponentScan("uz.hh")
+@RequiredArgsConstructor
 public class MvcConfiguration implements WebMvcConfigurer {
 
     private final ApplicationContext applicationContext;
-
-    public MvcConfiguration(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
-    }
 
     @Bean
     public SpringResourceTemplateResolver templateResolver() {
