@@ -1,18 +1,40 @@
 package uz.hh.controller;
 
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import uz.hh.config.security.AuthUserDetails;
+import uz.hh.config.security.UserSession;
+
+import java.util.Random;
 
 @Controller
-@RequestMapping
 public class HomeController {
-    @GetMapping({"/home", "/main", "/", ""})
-    public String homePage( Model model, @AuthenticationPrincipal AuthUserDetails user) {
 
+    private final UserSession userSession;
+
+    public HomeController(UserSession userSession) {
+        this.userSession = userSession;
+    }
+
+    @GetMapping("/home")
+    public String hasAdminRole(Model model) {
+        //var s = "{bcrypt}$sdjvbhksnfbpgdhjnvlworhgeirnkvmd";
+        //var ss = "{noop}passwor";
+        //System.out.println("userSession.getUser().getId() = " + userSession.getId());
         return "home";
     }
+
+//    @GetMapping("/home2")
+//    public String homePage2() {
+//        if (new Random().nextBoolean()) {
+//            throw new CustomRuntimeException("Just For Fun Exception");
+//        }
+//        return "main2";
+//    }
+
+/*    @ExceptionHandler(CustomRuntimeException.class)
+    public String exception(Model model, CustomRuntimeException e) {
+        model.addAttribute("error", e.getMessage());
+        return "error";
+    }*/
 }

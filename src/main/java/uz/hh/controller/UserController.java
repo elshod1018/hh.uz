@@ -25,6 +25,16 @@ public class UserController {
         mav.setViewName("auth/register");
         return mav;
     }
+    @PostMapping("/register")
+    public String register(@ModelAttribute UserCreateDTO dto) {
+        User authUser = User.builder()
+                .username(dto.username())
+                .password(passwordEncoder.encode(dto.password()))
+                .email(dto.email())
+                .build();
+        authUserRepository.save(authUser);
+        return "redirect:/login";
+    }
 
     @GetMapping("/login")
     public ModelAndView loginPage(@RequestParam(required = false) String error) {
@@ -39,16 +49,5 @@ public class UserController {
         var mav = new ModelAndView();
         mav.setViewName("auth/logout");
         return mav;
-    }
-
-    @PostMapping("/register")
-    public String register(@ModelAttribute UserCreateDTO dto) {
-        User authUser = User.builder()
-                .username(dto.username())
-                .password(passwordEncoder.encode(dto.password()))
-                .email(dto.email())
-                .build();
-        authUserRepository.save(authUser);
-        return "redirect:/login";
     }
 }
