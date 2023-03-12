@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head(~{::title},~{::link})}">
+  <title>Home Page</title>
+  <link rel="stylesheet" href="">
+  <style>
+    body {
+      background-image: url("https://www.jobstreet.com.ph/en/cms/employer/wp-content/uploads/sites/19/2020/11/5-Trending-Jobs-in-the-New-Normal.jpg");
+    }
+  </style>
+</head>
+<body>
+<section th:replace="fragments :: navbar"></section>
+
+
+
+
+<section th:replace="fragments :: js_links"></section>
+</body>
+</html>
