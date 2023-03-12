@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head(~{::title},~{::link})}">
+    <title>Register Page</title>
+    <link rel="stylesheet" href="">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 offset-1">
+            <h1 class="mt-2 text-center">Login Page</h1>
+            <form method="post" th:action="@{/auth/logout}">
+                <div class="alert alert-danger">
+                    Are you sure sing out ?
+                </div>
+                <button type="submit" class="btn btn-danger">Yes</button>
+                <a th:href="@{/home}" class="btn btn-success">Back</a>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
