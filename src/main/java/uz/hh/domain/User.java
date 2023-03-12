@@ -1,6 +1,7 @@
 package uz.hh.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,12 +22,16 @@ public class User {
     @GeneratedValue(generator = "uuid2")
     private String id;
     @Column(nullable = false)
+    @NotBlank
     private String fullName;
     @Column(nullable = false, unique = true)
+    @NotBlank
     private String username;
     @Column(nullable = false, unique = true)
+    @NotBlank
     private String email;
     @Column(nullable = false)
+    @NotBlank
     private String password;
     @Column(nullable = false)
     @Builder.Default
