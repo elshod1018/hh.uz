@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head(~{::title},~{::link})}">
+    <title>Register Page</title>
+    <link rel="stylesheet" href="">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 offset-1">
+            <h1 class="mt-2 text-center">Login Page</h1>
+            <div class="alert alert-danger" th:if="${error}">
+                <span th:text="${error}"></span>
+            </div>
+            <form method="post" th:action="@{/auth/login}">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" name="uname">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="pswd">
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe">
+                    <label class="form-check-label" for="rememberMe">Remember me ?</label>
+                </div>
+                <button type="submit" class="btn btn-success">Login</button>
+                <a th:href="@{/auth/register}">Register</a>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
