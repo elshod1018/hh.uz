@@ -15,7 +15,6 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
-@Builder
 public class Vacancy {
     @Id
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
