@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
+
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -30,7 +30,7 @@ public class SecurityConfigurer {
             "/upload",
             "/auth/register"
     };
-//    private final UserDetailsService userDetailsService;
+    private final AuthUserDetailsService userDetailsService;
     private final AuthenticationFailureHandler authenticationFailureHandler;
 
     @Bean
@@ -59,7 +59,7 @@ public class SecurityConfigurer {
                                 .deleteCookies("JSESSIONID", "rememberME")
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout", "POST"))
                 )
-//                .userDetailsService(userDetailsService)
+                .userDetailsService(userDetailsService)
                 .rememberMe(httpSecurityRememberMeConfigurer ->
                         httpSecurityRememberMeConfigurer
                                 .rememberMeParameter("rememberMe")
