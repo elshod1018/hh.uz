@@ -1,4 +1,5 @@
 package uz.hh.config.security;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,7 +27,7 @@ public class AuthUserDetails implements UserDetails {
         var authorities = new ArrayList<SimpleGrantedAuthority>();
         authRoles.forEach(authRole -> {
             authorities.add(new SimpleGrantedAuthority("ROLE_" + authRole.getCode()));
-            Collection<Permission> authPermissions = Objects.requireNonNullElse(authRole.getPermissions(), Collections.<Permission>emptySet());
+            Collection<Permission> authPermissions = Objects.requireNonNullElse(authRole.getPermissions(), Collections.emptySet());
             authPermissions.forEach(authPermission -> {
                 authorities.add(new SimpleGrantedAuthority(authPermission.getCode()));
             });
