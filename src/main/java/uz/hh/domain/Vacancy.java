@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Builder
+
 public class Vacancy {
     @Id
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
