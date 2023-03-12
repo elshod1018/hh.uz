@@ -10,6 +10,7 @@
         <div class="col-md-10 offset-1">
             <h1 class="mt-2 text-center">Register Page</h1>
             <form method="post">
+                <input type="hidden" name="_csrf" th:value="${_csrf.getToken()}">
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
                     <input type="text" class="form-control" id="username" name="username">
