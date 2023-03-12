@@ -8,25 +8,27 @@
 <div class="container">
     <div class="row">
         <div class="col-md-10 offset-1">
-            <h1 class="mt-2 text-center">Login Page</h1>
-            <div class="alert alert-danger" th:if="${error}">
-                <span th:text="${error}"></span>
-            </div>
-            <form method="post" th:action="@{/auth/login}">
+            <h1 class="mt-2 text-center">Register Page</h1>
+            <form method="post">
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
                     <input type="text" class="form-control" id="username" name="username">
                 </div>
                 <div class="mb-3">
+                    <label for="email" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
+                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                </div>
+                <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
                     <input type="password" class="form-control" id="password" name="password">
                 </div>
-                <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe">
-                    <label class="form-check-label" for="rememberMe">Remember me ?</label>
+                <div class="mb-3">
+                    <label for="confirmPassword" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword">
                 </div>
-                <button type="submit" class="btn btn-success">Login</button>
-                <a th:href="@{/auth/register}">Register</a>
+                <button type="submit" class="btn btn-success">Register</button>
+                <a th:href="@{/auth/login}">Login</a>
             </form>
         </div>
     </div>

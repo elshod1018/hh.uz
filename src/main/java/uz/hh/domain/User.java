@@ -14,7 +14,6 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "users")
-@Table(name = "users")
 @Builder
 public class User {
     @Id
@@ -43,16 +42,19 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
     private Set<Role> roles;
+    @Column(nullable = false)
     @OneToMany(cascade = CascadeType.ALL,
-            mappedBy = "candidate",
             fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_chats"
+    )
     private Set<Chat> chats;
 
 
     @Builder.Default
     @Column(name = "is_deleted", nullable = false)
     private boolean is_deleted = false;
-    @Column(name = "created_at", nullable = false, columnDefinition = "timestamp default now()")
+    @Column(name = "created_at", nullable = false, columnDefinition = "default now()")
     @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
 
