@@ -19,7 +19,10 @@
 <section th:fragment="navbar">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#" th:text="${#authentication.name}"></a>
+            <a class="navbar-brand" href="#">
+                <span class="supernova-logo supernova-logo_inversed supernova-logo_hh-ru" tabindex="-1">
+                </span>
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -27,8 +30,8 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item" th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
-                        <a class="nav-link active" aria-current="page" href="#">ADMIN</a>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Link</a>
@@ -51,20 +54,14 @@
                         <a class="nav-link disabled">Disabled</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/auth/login}" sec:authorize="isAnonymous()">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/auth/register}" sec:authorize="isAnonymous()">Register</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/auth/logout}" sec:authorize="isAuthenticated()">Logout</a>
-                    </li>
-                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
             </div>
         </div>
     </nav>
+
 </section>
 
 
