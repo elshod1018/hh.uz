@@ -1,5 +1,6 @@
 package uz.hh.config.security;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -17,6 +18,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
         jsr250Enabled = true
 
 )
+@RequiredArgsConstructor
 public class SecurityConfigurer {
 
     public static final String[] WHITE_LIST = {
@@ -24,18 +26,13 @@ public class SecurityConfigurer {
             "/js/**",
             "/home",
             "/auth/login",
-           // "/upload",
+            "/upload",
             "/auth/register",
             "/"
     };
-    private final UserDetailsService authUserUserDetailsService;
+    private final AuthUserDetailsService authUserDetailsService;
     private final AuthenticationFailureHandler authenticationFailureHandler;
 
-    public SecurityConfigurer(UserDetailsService authUserUserDetailsService,
-                              AuthenticationFailureHandler authenticationFailureHandler) {
-        this.authUserUserDetailsService = authUserUserDetailsService;
-        this.authenticationFailureHandler = authenticationFailureHandler;
-    }
 
 
     @Bean
@@ -64,7 +61,7 @@ public class SecurityConfigurer {
                                 .deleteCookies("JSESSIONID", "rememberME")
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout", "POST"))
                 )
-                .userDetailsService(authUserUserDetailsService)
+                .userDetailsService(authUserDetailsService)
                 .rememberMe(httpSecurityRememberMeConfigurer ->
                         httpSecurityRememberMeConfigurer
                                 .rememberMeParameter("rememberMe")

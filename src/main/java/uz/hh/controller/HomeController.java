@@ -1,34 +1,23 @@
 package uz.hh.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import uz.hh.config.security.UserSession;
 
 import java.util.Random;
 
 @Controller
+@RequiredArgsConstructor
 public class HomeController {
 
     private final UserSession userSession;
 
-    public HomeController(UserSession userSession) {
-        this.userSession = userSession;
-    }
-
-//    @GetMapping("/home")
-//    public String hasAdminRole(Model model) {
-//        //var s = "{bcrypt}$sdjvbhksnfbpgdhjnvlworhgeirnkvmd";
-//        //var ss = "{noop}passwor";
-//        //System.out.println("userSession.getUser().getId() = " + userSession.getId());
-//        return "home";
-//    }
 
     @GetMapping({"/","/home"})
     public String homePage() {
-//        if (new Random().nextBoolean()) {
-//            throw new CustomRuntimeException("Just For Fun Exception");
-//        }
         return "home";
     }
 
