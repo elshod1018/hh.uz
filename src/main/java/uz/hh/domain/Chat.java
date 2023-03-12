@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -19,16 +20,23 @@ public class Chat {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @GeneratedValue(generator = "uuid2")
     private String id;
-    @ManyToOne
-    @JoinColumn(name = "candidate_id")
+    @ManyToOne(cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER,
+            optional = false)
     private User candidate;
-    @Column(nullable = false, name = "vacancy_id")
-    private String vacancyId;
 
-    @Column(nullable = false, name = "employer_id")
-    private String employerId;
-    @Column(nullable = false, name = "message_id")
-    private String messageId;
+    @ManyToOne(cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER,
+            optional = false)
+    private Vacancy vacancy;
+
+    @ManyToOne(cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER,
+            optional = false)
+    private Employer employer;
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER)
+    private Set<Message> messages;
     @Builder.Default
     @Enumerated(EnumType.STRING)
     private VacancyStatus status = VacancyStatus.APPLIED;
@@ -37,7 +45,7 @@ public class Chat {
     @Column(nullable = false, name = "created_at", columnDefinition = "timestamp default now()")
     LocalDateTime createdAt = LocalDateTime.now();
 
-    @Column(name = "updated_at",columnDefinition = "timestamp")
+    @Column(name = "updated_at", columnDefinition = "timestamp")
     LocalDateTime updatedAt;
 
 }
