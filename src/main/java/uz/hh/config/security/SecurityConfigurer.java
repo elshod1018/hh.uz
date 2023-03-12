@@ -28,7 +28,8 @@ public class SecurityConfigurer {
             "/home",
             "/auth/login",
             "/upload",
-            "/auth/register"
+            "/auth/register",
+            "/"
     };
     private final AuthUserDetailsService userDetailsService;
     private final AuthenticationFailureHandler authenticationFailureHandler;
