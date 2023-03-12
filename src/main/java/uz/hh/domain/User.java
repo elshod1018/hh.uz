@@ -13,7 +13,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "users")
+@Entity
 @Table(name = "users")
 @Builder
 public class User {
@@ -21,7 +21,7 @@ public class User {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @GeneratedValue(generator = "uuid2")
     private String id;
-    @Column(nullable = false)
+    @Column(nullable = false,name = "full_name")
     private String fullName;
     @Column(nullable = false, unique = true)
     private String username;
@@ -31,7 +31,6 @@ public class User {
     private String password;
     @Column(nullable = false)
     @Builder.Default
-    @Enumerated(EnumType.STRING)
     private Status status = Status.NOT_ACTIVE;
 
     @Column(nullable = false)
