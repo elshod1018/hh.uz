@@ -24,8 +24,9 @@ public class SecurityConfigurer {
             "/js/**",
             "/home",
             "/auth/login",
-            "/upload",
-            "/auth/register"
+           // "/upload",
+            "/auth/register",
+            "/"
     };
     private final UserDetailsService authUserUserDetailsService;
     private final AuthenticationFailureHandler authenticationFailureHandler;
@@ -53,7 +54,7 @@ public class SecurityConfigurer {
                                 .loginProcessingUrl("/auth/login")
                                 .usernameParameter("uname")
                                 .passwordParameter("pswd")
-                                .defaultSuccessUrl("/home2", false)
+                                .defaultSuccessUrl("/home", false)
                                 .failureHandler(authenticationFailureHandler)
                 )
                 .logout(httpSecurityLogoutConfigurer ->
@@ -71,7 +72,6 @@ public class SecurityConfigurer {
                                 .tokenValiditySeconds(10 * 24 * 60 * 60)// default is 30 minutes
                                 .rememberMeCookieName("rememberME")
                 );
-
 
         return http.build();
     }
