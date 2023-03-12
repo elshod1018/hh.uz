@@ -6,5 +6,5 @@ import uz.hh.domain.Chat;
 import java.util.List;
 
 public interface ChatRepository extends JpaRepository<Chat, String> {
-    List<Chat> findAllById(String id);
+    List<Chat> findAllByCandidateId(String id);
 }

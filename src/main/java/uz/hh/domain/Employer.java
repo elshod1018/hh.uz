@@ -14,19 +14,25 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "users")
+@Entity(name = "employers")
 @Builder
-public class User {
+public class Employer {
     @Id
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @GeneratedValue(generator = "uuid2")
     private String id;
     @Column(nullable = false)
     @NotBlank
-    private String fullName;
+    private String name;
+    @Column(nullable = false, name = "sure_name")
+    @NotBlank
+    private String sureName;
     @Column(nullable = false, unique = true)
     @NotBlank
     private String username;
+    @Column(nullable = false, name = "phone_number")
+    @NotBlank
+    private String phoneNumber;
     @Column(nullable = false, unique = true)
     @NotBlank
     private String email;
@@ -51,8 +57,14 @@ public class User {
     private Set<Chat> chats;
 
     @OneToMany(cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER)
-    private Set<Resume> resumes;
+            fetch = FetchType.EAGER,
+            mappedBy = "employer")
+    private Set<Vacancy> vacancies;
+    @NotBlank
+    private String region;
+    @NotBlank
+    @Column(name = "company_name")
+    private String companyName;
 
     @Builder.Default
     @Column(name = "is_deleted", nullable = false)
