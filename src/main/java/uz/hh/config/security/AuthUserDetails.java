@@ -1,6 +1,7 @@
 package uz.hh.config.security;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import uz.hh.domain.Permission;
 import uz.hh.domain.Role;
 import uz.hh.domain.Status;
@@ -11,11 +12,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
 
-public class UserDetails implements org.springframework.security.core.userdetails.UserDetails {
+public class AuthUserDetails implements UserDetails {
 
     private final User user;
 
-    public UserDetails(User user) {
+    public AuthUserDetails(User user) {
         this.user = user;
     }
 
