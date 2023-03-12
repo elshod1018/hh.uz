@@ -13,8 +13,8 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
-//@Builder
 public class Message {
     @Id
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
@@ -25,7 +25,7 @@ public class Message {
     @Column(nullable = false)
     private String text;
     @Builder.Default
-    @Column(columnDefinition = "timestamp default now()", name = "created_at", nullable = false)
+    @Column(columnDefinition = "default now()", name = "created_at", nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
 }
