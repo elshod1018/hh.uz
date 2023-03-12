@@ -12,7 +12,7 @@ public class UserSession {
         SecurityContext context = SecurityContextHolder.getContext();
         Authentication authentication = context.getAuthentication();
         Object authUserDetails = authentication.getPrincipal();
-        if (authUserDetails instanceof UserDetails userDetails)
+        if (authUserDetails instanceof AuthUserDetails userDetails)
             return userDetails.getUser();
         return null;
     }

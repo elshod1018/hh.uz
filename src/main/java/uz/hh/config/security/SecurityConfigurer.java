@@ -1,15 +1,18 @@
 package uz.hh.config.security;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
+@RequiredArgsConstructor
 @EnableWebSecurity
 @EnableMethodSecurity(
         prePostEnabled = true,
@@ -24,19 +27,12 @@ public class SecurityConfigurer {
             "/js/**",
             "/home",
             "/auth/login",
-           // "/upload",
+            "/upload",
             "/auth/register",
             "/"
     };
-    private final UserDetailsService authUserUserDetailsService;
+    private final AuthUserDetailsService userDetailsService;
     private final AuthenticationFailureHandler authenticationFailureHandler;
-
-    public SecurityConfigurer(UserDetailsService authUserUserDetailsService,
-                              AuthenticationFailureHandler authenticationFailureHandler) {
-        this.authUserUserDetailsService = authUserUserDetailsService;
-        this.authenticationFailureHandler = authenticationFailureHandler;
-    }
-
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -52,8 +48,8 @@ public class SecurityConfigurer {
                         httpSecurityFormLoginConfigurer
                                 .loginPage("/auth/login")
                                 .loginProcessingUrl("/auth/login")
-                                .usernameParameter("uname")
-                                .passwordParameter("pswd")
+                                .usernameParameter("username")
+                                .passwordParameter("password")
                                 .defaultSuccessUrl("/home", false)
                                 .failureHandler(authenticationFailureHandler)
                 )
@@ -64,7 +60,7 @@ public class SecurityConfigurer {
                                 .deleteCookies("JSESSIONID", "rememberME")
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout", "POST"))
                 )
-                .userDetailsService(authUserUserDetailsService)
+                .userDetailsService(userDetailsService)
                 .rememberMe(httpSecurityRememberMeConfigurer ->
                         httpSecurityRememberMeConfigurer
                                 .rememberMeParameter("rememberMe")
@@ -72,7 +68,6 @@ public class SecurityConfigurer {
                                 .tokenValiditySeconds(10 * 24 * 60 * 60)// default is 30 minutes
                                 .rememberMeCookieName("rememberME")
                 );
-
         return http.build();
     }
 
