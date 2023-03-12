@@ -26,6 +26,8 @@ public class SecurityConfigurer {
             "/css/**",
             "/js/**",
             "/home",
+            "/main",
+            "/",
             "/auth/login",
             "/upload",
             "/auth/register"
