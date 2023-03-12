@@ -15,8 +15,8 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
-
 public class Vacancy {
     @Id
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
@@ -30,7 +30,7 @@ public class Vacancy {
     @Builder.Default
     @Column(name = "is_deleted", nullable = false)
     private boolean is_deleted = false;
-    @Column(name = "created_at", nullable = false, columnDefinition = "timestamp default now()")
+    @Column(name = "created_at", nullable = false, columnDefinition = "default now()")
     @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
 }
