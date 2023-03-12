@@ -30,7 +30,7 @@ public class Vacancy {
     @Builder.Default
     @Column(name = "is_deleted", nullable = false)
     private boolean is_deleted = false;
-    @Column(name = "created_at", nullable = false, columnDefinition = "default now()")
+    @Column(name = "created_at", nullable = false, columnDefinition = "timestamp default now()")
     @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
 }

@@ -34,12 +34,11 @@ public class Chat {
     private VacancyStatus status = VacancyStatus.APPLIED;
 
     @Builder.Default
-    @Column(nullable = false, name = "created_at", columnDefinition = "default now();")
+    @Column(nullable = false, name = "created_at", columnDefinition = "timestamp default now()l")
     LocalDateTime createdAt = LocalDateTime.now();
 
-//    @Column(name = "updated_at")
-//    LocalDateTime updatedAt;
+    @Column(name = "updated_at")
+    LocalDateTime updatedAt;
 
 }
-
 

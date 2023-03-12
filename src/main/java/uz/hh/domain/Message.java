@@ -25,7 +25,7 @@ public class Message {
     @Column(nullable = false)
     private String text;
     @Builder.Default
-    @Column(columnDefinition = "default now()", name = "created_at", nullable = false)
+    @Column(columnDefinition = "timestamp default now()", name = "created_at", nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
 }
