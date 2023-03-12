@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="headhunter:Web exploded">
-    <output-path>$PROJECT_DIR$/out/artifacts/headhunter_Web_exploded</output-path>
+  <artifact type="exploded-war" name="unnamed">
+    <output-path>$PROJECT_DIR$/out/artifacts/unnamed</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
@@ -60,7 +60,6 @@
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-web:6.0.1" />
         </element>
       </element>
-      <element id="javaee-facet-resources" facet="headhunter/web/Web" />
     </root>
   </artifact>
 </component>
