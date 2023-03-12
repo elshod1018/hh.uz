@@ -29,6 +29,8 @@ public class SecurityConfigurer {
             "/auth/login",
             "/upload",
             "/auth/register",
+            "/auth/registerUser",
+            "/auth/registerEmployer",
             "/"
     };
     private final AuthUserDetailsService userDetailsService;

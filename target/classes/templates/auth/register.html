@@ -1,38 +1,38 @@
-<!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en">
 <head th:replace="~{fragments :: head(~{::title},~{::link})}">
-    <title>Register Page</title>
+    <title>Registration Page</title>
     <link rel="stylesheet" href="">
 </head>
 <body>
-<div class="container">
+<section th:replace="fragments :: navbar"></section>
+
+
+<div class="m-5">
     <div class="row">
-        <div class="col-md-10 offset-1">
-            <h1 class="mt-2 text-center">Register Page</h1>
-            <form method="post">
-                <input type="hidden" name="_csrf" th:value="${_csrf.getToken()}">
-                <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
-                    <input type="text" class="form-control" id="username" name="username">
+        <div class="col-sm-6 mb-3 mb-sm-0">
+            <div class="card">
+                <div class="card-body">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4974/4974985.png" class="card-img-top" style="width: 100px; height: 100px" alt="Imagenot found">
+                    <h5 class="card-title">Job search</h5>
+                    <p class="card-text">Decent salary, More job opporunities, CV Generator</p>
+                    <a th:href="@{/auth/registerUser}" class="btn btn-primary">Register</a>
                 </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
-                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <img src="https://cdn-icons-png.flaticon.com/512/6550/6550916.png" class="card-img-top" style="width: 100px; height: 100px" alt="Imagenot found">
+                    <h5 class="card-title">Search for colleagues</h5>
+                    <p class="card-text">Job posting and access to resume database</p>
+                    <a th:href="@{/auth/registerEmployer}" class="btn btn-primary">Register</a>
                 </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" name="password">
-                </div>
-                <div class="mb-3">
-                    <label for="confirmPassword" class="form-label">Confirm Password</label>
-                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword">
-                </div>
-                <button type="submit" class="btn btn-success">Register</button>
-                <a th:href="@{/auth/login}">Login</a>
-            </form>
+            </div>
         </div>
     </div>
 </div>
+
+<section th:replace="fragments :: js_links"></section>
 </body>
 </html>
