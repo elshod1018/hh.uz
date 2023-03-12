@@ -24,7 +24,7 @@ import java.util.Properties;
 public class SpringDataConfigurer {
 
     private final Environment env;
-    //
+
 
     @Bean
     public DataSource dataSource() {

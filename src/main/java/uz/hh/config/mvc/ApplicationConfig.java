@@ -21,6 +21,6 @@ public class ApplicationConfig extends AbstractAnnotationConfigDispatcherServlet
 
     @Override
     protected void customizeRegistration(ServletRegistration.Dynamic registration) {
-        registration.setMultipartConfig(new MultipartConfigElement("/home/elshod/apps/hh/upload/"));
+        registration.setMultipartConfig(new MultipartConfigElement("/home/madina/apps/hh/upload/"));
     }
 }

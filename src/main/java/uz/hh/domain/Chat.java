@@ -37,8 +37,8 @@ public class Chat {
     @Column(nullable = false, name = "created_at", columnDefinition = "default now();")
     LocalDateTime createdAt = LocalDateTime.now();
 
-    @Column(name = "updated_at")
-    LocalDateTime updatedAt;
+//    @Column(name = "updated_at")
+//    LocalDateTime updatedAt;
 
 }
 
