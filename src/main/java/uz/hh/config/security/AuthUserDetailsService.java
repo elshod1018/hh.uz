@@ -7,7 +7,8 @@ import org.springframework.stereotype.Service;
 import uz.hh.domain.User;
 import uz.hh.repository.UserRepository;
 
-@Service
+@Service("userDetailsService")
+
 @RequiredArgsConstructor
 public class AuthUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
