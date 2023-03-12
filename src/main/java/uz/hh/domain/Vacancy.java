@@ -1,9 +1,6 @@
 package uz.hh.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,20 +8,26 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
+@Builder
 public class Vacancy {
     @Id
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @GeneratedValue(generator = "uuid2")
     private String id;
-    @Column(name = "owner_id", nullable = false)
-    private String ownerId;
+    @ManyToOne
+    @JoinColumn(name = "employer_id",nullable = false)
+    private Employer employer;
 
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER)
+    private Set<Chat> chats;
 
 
     @Builder.Default

@@ -15,13 +15,19 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
+@Builder
 public class Message {
     @Id
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @GeneratedValue(generator = "uuid2")
     private String id;
-    @Column(nullable = false,name = "owner_id")
+    @Column(nullable = false, name = "owner_id")
     private String ownerId;
+
+    @ManyToOne(cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER,
+            optional = false)
+    private Chat chat;
     @Column(nullable = false)
     private String text;
     @Builder.Default
