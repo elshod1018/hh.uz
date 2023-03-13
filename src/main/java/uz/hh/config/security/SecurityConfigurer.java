@@ -43,7 +43,8 @@ public class SecurityConfigurer {
                                 .requestMatchers(WHITE_LIST)
                                 .permitAll()
                                 .anyRequest()
-                                .authenticated()
+                                .permitAll()
+//                                .authenticated()
                 )
                 .formLogin(httpSecurityFormLoginConfigurer ->
                         httpSecurityFormLoginConfigurer

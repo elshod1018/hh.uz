@@ -1,5 +1,6 @@
 package uz.hh.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -10,14 +11,10 @@ import uz.hh.repository.UserRepository;
 
 @Controller
 @RequestMapping("/auth")
+@RequiredArgsConstructor
 public class UserController {
-    private final UserRepository authUserRepository;
+    private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-
-    public UserController(UserRepository authUserRepository, PasswordEncoder passwordEncoder) {
-        this.authUserRepository = authUserRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     @GetMapping("/register")
     public ModelAndView registerPage() {
@@ -25,6 +22,7 @@ public class UserController {
         mav.setViewName("auth/register");
         return mav;
     }
+
     @PostMapping("/register")
     public String register(@ModelAttribute UserCreateDTO dto) {
         User authUser = User.builder()
@@ -32,7 +30,7 @@ public class UserController {
                 .password(passwordEncoder.encode(dto.password()))
                 .email(dto.email())
                 .build();
-        authUserRepository.save(authUser);
+        userRepository.save(authUser);
         return "redirect:/login";
     }
 
