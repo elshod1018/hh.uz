@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head(~{::title},~{::link})}">
+    <meta charset="UTF-8">
+    <title>Chats</title>
+    <link href="/css/homepage.css">
+</head>
+<body>
+<section th:replace="~{fragments :: navbar}"></section>
+<div class="container col-md-4 col-lg-6 col-sm-2" style="margin-top: 20px">
+   <div th:object="${chat}">
+      <h4 th:text="${chat.getEmployer().getCompanyName()}"></h4>
+   </div>
+</div>
+<section th:replace="~{fragments :: js_links}"></section>
+</body>
+</html>
