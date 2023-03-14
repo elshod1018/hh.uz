@@ -1,10 +1,7 @@
 package uz.hh.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDateTime;
@@ -21,33 +18,61 @@ public class Vacancy {
     @GeneratedValue(generator = "uuid2")
     private String id;
 
+    @Column(nullable = false)
     private String title;
-    private LocalDateTime application_dedline;
-    private EmploymentForm emp_form;
 
-    private EmploymentType emp_type;
+    @Column(nullable = false)
+    private LocalDateTime application_deadline;
 
-    private  String country;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Builder.Default
+    private EmploymentForm emp_form = EmploymentForm.IN_OFFICE;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Builder.Default
+    private EmploymentType emp_type = EmploymentType.FULL_TIME;
+
+    @Column(nullable = false)
+    private String country;
+
+    @Column
     private String language;
-    private LanguageLevel language_level;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private LanguageLevel language_level = LanguageLevel.NATIVE;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Market market;
 
-    private String  skills; //string array bolishi kk
+//    @Column
+//    private String [] skills; //string array bolishi kk
 
-    private double salary;
-    private Currency currency;
+    @Column(nullable = false)
+    @Builder.Default
+    private double salary = 0;
 
-    private EducationLevel educationLevel;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Builder.Default
+    private Currency currency = Currency.SUM;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Builder.Default
+    private EducationLevel educationLevel= EducationLevel.NONE;
+
+    @Column
     private String experienceYear;
 
+    @Column
     private String description;
 
 
     @ManyToOne
-    @JoinColumn(name = "employer_id",nullable = false)
+    @JoinColumn(name = "employer_id", nullable = false)
     private Employer employer;
 
     @OneToMany(cascade = CascadeType.ALL,
@@ -62,19 +87,19 @@ public class Vacancy {
     @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    enum EmploymentForm{
+    enum EmploymentForm {
         REMOTE, IN_OFFICE, HYBRID
     }
 
-    enum EmploymentType{
+    enum EmploymentType {
         FULL_TIME, PART_TIME, FREELANCE, INTERNSHIP
     }
 
-    enum LanguageLevel{
+    enum LanguageLevel {
         BEGINNER, INTERMEDIATE, UPPER_INTERMEDIATE, NATIVE, PROFICIENT
     }
 
-    enum Market{
+    enum Market {
         INFORMATION_TECHNOLOGY,
         SOFTWARE_DEVELOPMENT,
         MANAGEMENT,
@@ -90,11 +115,11 @@ public class Vacancy {
 
     }
 
-    enum Currency{
+    enum Currency {
         DOLLAR, EURO, SUM
     }
 
-    enum EducationLevel{
+    enum EducationLevel {
         BACHELORS, MASTERS, NONE, HIGH_SCHOOL,
     }
 
