@@ -16,7 +16,7 @@ public class HomeController {
     private final UserSession userSession;
 
 
-    @GetMapping({"/","/home"})
+    @GetMapping({"/","/home",""})
     public String homePage() {
         return "home";
     }

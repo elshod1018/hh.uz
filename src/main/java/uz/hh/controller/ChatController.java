@@ -47,10 +47,10 @@ public class ChatController {
     public String messagePage(Model model, @PathVariable String chatId) {
         Chat chat = chatService.getChatById(chatId);
         System.out.println(chat + " : " + chatId);
-        if (Objects.isNull(chat)) {
-            return "redirect:/chat/userchats";
-        }
-        model.addAttribute(chat);
+//        if (Objects.isNull(chat)) {
+//            return "redirect:/chat/userchats";
+//        }
+        model.addAttribute("chat", chat);
         return "chat/message";
     }
 
