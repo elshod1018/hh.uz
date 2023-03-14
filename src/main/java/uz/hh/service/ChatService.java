@@ -11,6 +11,7 @@ import uz.hh.repository.ChatRepository;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -40,6 +41,6 @@ public class ChatService {
     }
 
     public Chat getChatById(String chatId) {
-        return chatRepository.findChatById(chatId).get();
+        return chatRepository.getChatById(chatId);
     }
 }
