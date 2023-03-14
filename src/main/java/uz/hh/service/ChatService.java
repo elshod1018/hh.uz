@@ -41,6 +41,6 @@ public class ChatService {
     }
 
     public Chat getChatById(String chatId) {
-        return chatRepository.getChatById(chatId);
+        return chatRepository.findChatById(chatId);
     }
 }
