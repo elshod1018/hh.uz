@@ -1,73 +1,41 @@
 package uz.hh.controller;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import uz.hh.config.security.UserSession;
-import uz.hh.domain.*;
-import uz.hh.dto.ChatCreateDTO;
-import uz.hh.service.ChatService;
-
-import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+import uz.hh.repository.ChatRepository;
 
 @Controller
 @RequestMapping("/chat")
-@RequiredArgsConstructor
 public class ChatController {
-    private final UserSession userSession;
-    private final ChatService chatService;
+    private final ChatRepository chatRepository;
 
-    @GetMapping("/userchats")
-//    @PreAuthorize("hasAnyRole('USER')")
-    public String userChatPage(Model model) {
-        List<Chat> userChats = chatService.getUserChats(userSession.getId());
-        model.addAttribute("chats", userChats);
-        return "chat/userchats";
+    public ChatController(ChatRepository chatRepository) {
+        this.chatRepository = chatRepository;
     }
 
-    @GetMapping("/employerchats")
-    @PreAuthorize("hasAnyRole('EMPLOYER')")
-    public String employerChatPage(Model model) {
-        List<Chat> employerChats = chatService.getEmployerChats(userSession.getId());
-        model.addAttribute("chats", employerChats);
-        return "userchats";
+
+    @GetMapping("/allChats")
+    public ModelAndView allChatsPage() {
+        var mav = new ModelAndView();
+        mav.setViewName("chat/allChats");
+        return mav;
     }
 
-    @GetMapping("/create")
-    @PreAuthorize("hasAnyRole('USER')")
-    public String createPage(@ModelAttribute ChatCreateDTO dto) {
-        chatService.chatCreate(dto, userSession.getUser());
-        return "chat/create";
+    @GetMapping("/chat")
+    public ModelAndView chatPage() {
+        var mav = new ModelAndView();
+        mav.setViewName("chat/chat");
+        return mav;
     }
 
-    @GetMapping("/message/{chatId:.+}")
-    public String messagePage(Model model, @PathVariable String chatId) {
-        Chat chat = chatService.getChatById(chatId);
-        System.out.println(chat + " : " + chatId);
-//        if (Objects.isNull(chat)) {
-//            return "redirect:/chat/userchats";
-//        }
-        User user = new User("1", "Elshod", "elshod",
-                "nuriddinovelshod@gmail.com", "1234",
-                Status.ACTIVE, Set.of(), Set.of(), Set.of(), false, LocalDateTime.now());
-        Vacancy vacancy = new Vacancy();
-        Employer employer = new Employer();
-        HashSet<Message> messages = new HashSet<>();
-        chat = new Chat("1", user, vacancy, employer, messages, VacancyStatus.APPLIED, LocalDateTime.now(), LocalDateTime.now());
-        model.addAttribute("chat", chat);
-        return "chat/message";
-    }
-
-    @PostMapping("/message")
-    public String message() {
-
-        return "redirect:/chat/message";
+    @PostMapping("/newChat")
+    public ModelAndView newChatPage() {
+        var mav = new ModelAndView();
+        mav.setViewName("chat/newChat");
+        return mav;
     }
 
 }

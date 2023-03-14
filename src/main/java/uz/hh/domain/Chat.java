@@ -20,33 +20,25 @@ public class Chat {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @GeneratedValue(generator = "uuid2")
     private String id;
-    @ManyToOne(cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER,
-            optional = false)
-    private User candidate;
+    @Column(nullable = false, name = "candidate_id")
+    private String candidateId;
+    @Column(nullable = false, name = "vacancy_id")
+    private String vacancyId;
 
-    @ManyToOne(cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER,
-            optional = false)
-    private Vacancy vacancy;
-
-    @ManyToOne(cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER,
-            optional = false)
-    private Employer employer;
-    @OneToMany(cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER)
-    private Set<Message> messages;
+    @Column(nullable = false, name = "employer_id")
+    private String employerId;
+    @Column(nullable = false, name = "message_id")
+    private String messageId;
     @Builder.Default
     @Enumerated(EnumType.STRING)
     private VacancyStatus status = VacancyStatus.APPLIED;
 
     @Builder.Default
-    @Column(nullable = false, name = "created_at", columnDefinition = "timestamp default now()")
+    @Column(nullable = false, name = "created_at", columnDefinition = "default now();")
     LocalDateTime createdAt = LocalDateTime.now();
 
-    @Column(name = "updated_at", columnDefinition = "timestamp")
-    LocalDateTime updatedAt;
+//    @Column(name = "updated_at")
+//    LocalDateTime updatedAt;
 
 }
 
