@@ -48,6 +48,11 @@ public class Chat {
     @Column(name = "updated_at", columnDefinition = "timestamp")
     LocalDateTime updatedAt;
 
+    @Column(name = "is_read" , columnDefinition = "boolean")
+    Boolean isRead;
+    @Column(name = "message" , columnDefinition = "text")
+    String message;
+
 }
 
 
