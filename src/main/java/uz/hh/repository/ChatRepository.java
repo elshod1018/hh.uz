@@ -11,5 +11,6 @@ public interface ChatRepository extends JpaRepository<Chat, String> {
 
     List<Chat> findAllByEmployerId(String id);
 
-    Chat getChatById(String id);
+    Optional<Chat> findChatById(String id);
+
 }
