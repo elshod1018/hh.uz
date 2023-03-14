@@ -3,8 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>.chat-container {
+        display: flex;
+        height: 100%;
+    }
+
+    .chat-sidebar {
+        width: 300px;
+        background-color: #f0f0f0;
+        padding: 10px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        overflow-y: scroll;
+    }
+
+    .chat-topic {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .read-checkbox {
+        margin-right: 5px;
+    }
+
+    .chat-list {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .chat-item {
+        display: flex;
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    .chat-item:hover {
+        background-color: #d9d9d9;
+    }
+
+    .chat-item.selected {
+        background-color: #0078ff;
+        color
+    </style>
 </head>
 <body>
+<div class="chat-container">
+    <div class="chat-sidebar">
+        <div class="chat-topic">
+            <h3>Headhunter Chat</h3>
+            <label>
+                <input type="checkbox" class="read-checkbox" checked>
+                Show Read Messages Only
+            </label>
+        </div>
+        <div class="chat-list">
+            <div class="chat-item">
+                <div class="chat-avatar">
+                    <img src="avatar.jpg" alt="User Avatar">
+                </div>
+                <div class="chat-preview">
+                    <h4>John Doe</h4>
+                    <p>Hi there, I'm interested in the Software Engineer position.</p>
+                </div>
+            </div>
+            <div class="chat-item">
+                <div class="chat-avatar">
+                    <img src="avatar.jpg" alt="User Avatar">
+                </div>
+                <div class="chat-preview">
+                    <h4>Jane Smith</h4>
+                    <p>Can you tell me more about the job requirements?</p>
+                </div>
+            </div>
+            <div class="chat-item">
+                <div class="chat-avatar">
+                    <img src="avatar.jpg" alt="User Avatar">
+                </div>
+                <div class="chat-preview">
+                    <h4>Bob Johnson</h4>
+                    <p>Do you have any open positions for front-end developers?</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="chat-main">
+        <div class="chat-header">
+            <div class="chat-avatar">
+                <img src="avatar.jpg" alt="User Avatar">
+            </div>
+            <div class="chat-user-info">
+                <h3>John Doe</h3>
+                <p>Software Engineer Position</p>
+            </div>
+        </div>
+        <div class="chat-messages">
+            <div class="message incoming">
+                <p>Hello, how can I help you today?</p>
+            </div>
+            <div class="message outgoing">
+                <p>Hi, I'm interested in the job posting for Software Engineer.</p>
+            </div>
+            <div class="message incoming">
+                <p>Great, let me know if you have any questions about the role.</p>
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" placeholder="Type your message...">
+            <button>Send</button>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
