@@ -11,6 +11,7 @@ import uz.hh.dto.ChatCreateDTO;
 import uz.hh.service.ChatService;
 
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/chat")
@@ -20,11 +21,11 @@ public class ChatController {
     private final ChatService chatService;
 
     @GetMapping("/userchats")
-    @PreAuthorize("hasAnyRole('USER')")
+//    @PreAuthorize("hasAnyRole('USER')")
     public String userChatPage(Model model) {
         List<Chat> userChats = chatService.getUserChats(userSession.getId());
         model.addAttribute("chats", userChats);
-        return "chat/mychats";
+        return "chat/userchats";
     }
 
     @GetMapping("/employerchats")
@@ -32,7 +33,7 @@ public class ChatController {
     public String employerChatPage(Model model) {
         List<Chat> employerChats = chatService.getEmployerChats(userSession.getId());
         model.addAttribute("chats", employerChats);
-        return "chat/mychats";
+        return "userchats";
     }
 
     @GetMapping("/create")
@@ -42,9 +43,13 @@ public class ChatController {
         return "chat/create";
     }
 
-    @GetMapping("/message")
-    public String messagePage(Model model, @RequestParam(name = "chatId", required = false) String chatId) {
+    @GetMapping("/message/{chatId:.+}")
+    public String messagePage(Model model, @PathVariable String chatId) {
         Chat chat = chatService.getChatById(chatId);
+        System.out.println(chat + " : " + chatId);
+        if (Objects.isNull(chat)) {
+            return "redirect:/chat/userchats";
+        }
         model.addAttribute(chat);
         return "chat/message";
     }

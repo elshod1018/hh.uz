@@ -18,6 +18,7 @@ import java.util.Set;
 public class ChatService {
     private final ChatRepository chatRepository;
 
+
     public List<Chat> getUserChats(String id) {
         return chatRepository.findAllByCandidateId(id);
     }
@@ -39,6 +40,6 @@ public class ChatService {
     }
 
     public Chat getChatById(String chatId) {
-        return chatRepository.getChatById(chatId);
+        return chatRepository.findChatById(chatId).get();
     }
 }
