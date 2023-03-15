@@ -12,14 +12,14 @@
         <tbody>
         <th:block th:each="chat : ${chats}">
             <tr>
-                <a th:href="@{/chat/mychat/chatId=${chat.id}}">
+                <a th:href="@{'/chat/message?chatId='+${chat.id}}">
                     <p th:text="${chat.getEmployer().getCompanyName()}"></p>
                     <p th:text="${chat.getVacancy().getEmployer()}"></p>
                 </a>
             </tr>
         </th:block>
         <tr>
-            <a th:href="@{/chat/message/chatId=}">
+            <a th:href="@{/chat/message?chatId=1}">
                 Test
             </a>
         </tr>

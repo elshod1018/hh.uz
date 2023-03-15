@@ -24,8 +24,7 @@ public class Message {
     private String ownerId;
 
     @ManyToOne(cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER,
-            optional = false)
+            fetch = FetchType.EAGER)
     private Chat chat;
     @Column(nullable = false)
     private String text;

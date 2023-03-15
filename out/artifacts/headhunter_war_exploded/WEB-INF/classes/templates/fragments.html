@@ -44,17 +44,17 @@
                 </ul>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li sec:authorize="!isAuthenticated()" class="nav-item">
-                            <a sec:authorize="!hasAnyRole('USER','')" class="nav-link" th:href="@{/chat/userchats}">
-                                <img style="width: 50px; height: 50px;"
-                                     src="https://cdn-icons-png.flaticon.com/512/134/134914.png"/>
-                            </a>
+                        <a sec:authorize="!hasAnyRole('USER','')" class="nav-link" th:href="@{/chat/userchats}">
+                            <img style="width: 50px; height: 50px;"
+                                 src="https://cdn-icons-png.flaticon.com/512/134/134914.png"/>
+                        </a>
                         <a sec:authorize="hasAnyRole('EMPLOYER')" class="nav-link" th:href="@{/chat/employerchats}">
-                                <img style="width: 50px; height: 50px;"
-                                     src="https://cdn-icons-png.flaticon.com/512/134/134914.png"/>
-                            </a>
+                            <img style="width: 50px; height: 50px;"
+                                 src="https://cdn-icons-png.flaticon.com/512/134/134914.png"/>
+                        </a>
                     </li>
                     <li sec:authorize="!isAuthenticated()" class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="#"aa>
                             <img style="width: 50px; height: 50px;"
                                  src="https://img.freepik.com/free-icon/user_318-749758.jpg"/>
                         </a>

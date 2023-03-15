@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="unnamed">
-    <output-path>$PROJECT_DIR$/out/artifacts/unnamed</output-path>
+  <artifact type="exploded-war" name="headhunter:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/headhunter_war_exploded</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
@@ -18,7 +18,6 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-web:6.0.6" />
           <element id="library" level="project" name="Maven: org.postgresql:postgresql:42.5.4" />
           <element id="library" level="project" name="Maven: org.checkerframework:checker-qual:3.5.0" />
-          <element id="library" level="project" name="Maven: jakarta.servlet:jakarta.servlet-api:6.0.0" />
           <element id="library" level="project" name="Maven: org.thymeleaf:thymeleaf:3.1.1.RELEASE" />
           <element id="library" level="project" name="Maven: ognl:ognl:3.3.4" />
           <element id="library" level="project" name="Maven: org.javassist:javassist:3.29.0-GA" />
@@ -60,8 +59,10 @@
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-web:6.0.1" />
           <element id="library" level="project" name="Maven: jakarta.validation:jakarta.validation-api:3.0.2" />
           <element id="library" level="project" name="Maven: org.hibernate.validator:hibernate-validator:7.0.5.Final" />
+          <element id="library" level="project" name="Maven: jakarta.servlet:jakarta.servlet-api:6.0.0" />
         </element>
       </element>
+      <element id="javaee-facet-resources" facet="headhunter/web/Web" />
     </root>
   </artifact>
 </component>
