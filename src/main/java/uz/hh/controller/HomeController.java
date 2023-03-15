@@ -12,7 +12,7 @@ import uz.hh.config.security.AuthUserDetails;
 @RequestMapping
 public class HomeController {
     @GetMapping({"/home", "/main", "/", ""})
-    public String homePage(@ModelAttribute Model model, @AuthenticationPrincipal AuthUserDetails user) {
+    public String homePage(Model model, @AuthenticationPrincipal AuthUserDetails user) {
 
         return "home";
     }

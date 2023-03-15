@@ -3,6 +3,7 @@ package uz.hh.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
+import uz.hh.config.enums.EmploymentForm;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -87,19 +88,17 @@ public class Vacancy {
     @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    enum EmploymentForm {
-        REMOTE, IN_OFFICE, HYBRID
-    }
 
-    enum EmploymentType {
+
+    public enum EmploymentType {
         FULL_TIME, PART_TIME, FREELANCE, INTERNSHIP
     }
 
-    enum LanguageLevel {
+    public enum LanguageLevel {
         BEGINNER, INTERMEDIATE, UPPER_INTERMEDIATE, NATIVE, PROFICIENT
     }
 
-    enum Market {
+    public enum Market {
         INFORMATION_TECHNOLOGY,
         SOFTWARE_DEVELOPMENT,
         MANAGEMENT,
@@ -115,11 +114,11 @@ public class Vacancy {
 
     }
 
-    enum Currency {
+    public enum Currency {
         DOLLAR, EURO, SUM
     }
 
-    enum EducationLevel {
+    public enum EducationLevel {
         BACHELORS, MASTERS, NONE, HIGH_SCHOOL,
     }
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments :: head(~{::title},~{::link})}">
     <title>Vacancy Create Page</title>
     <link rel="stylesheet" href="">
@@ -7,7 +7,26 @@
     <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-
+<div>
+    <form>
+        <a th:href="@{/vacancy/main}" type="button" class="carousel-control-prev-icon; btn-warening"> Back</a>
+        <h3 style="text-align: center">Create a new  vacancy</h3>
+        <p> </p>
+        <hr>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="title" name="title" placeholder="Title">
+            <label for="title">Title</label>
+        </div>
+        <div class="col-3">
+            <input type="date" th:value="${localDate}"
+                   th:min="${#dates.format(#dates.createNow(), 'dd-mm-yyyy')}" />
+            <select name="Employement Form">
+                <option th:each="colorOpt : ${T(uz.hh.config.enums.EmploymentForm).values()}"
+                        th:value="${colorOpt}" th:text="${colorOpt}"></option>
+            </select>
+        </div>
+    </form>
+</div>
 
 <script th:replace="fragments :: js_links"></script>
 </body>
