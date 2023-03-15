@@ -3,7 +3,7 @@ package uz.hh.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
-import uz.hh.config.enums.EmploymentForm;
+import uz.hh.config.enums.*;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -36,20 +36,20 @@ public class Vacancy {
     private EmploymentType emp_type = EmploymentType.FULL_TIME;
 
     @Column(nullable = false)
-    private String country;
+    private String region;
 
-    @Column
-    private String language;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
+    @Builder.Default
+    private Language language = Language.ENGLISH;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Builder.Default
     private LanguageLevel language_level = LanguageLevel.NATIVE;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Market market;
-
-//    @Column
-//    private String [] skills; //string array bolishi kk
 
     @Column(nullable = false)
     @Builder.Default
@@ -63,7 +63,7 @@ public class Vacancy {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     @Builder.Default
-    private EducationLevel educationLevel= EducationLevel.NONE;
+    private EducationLevel educationLevel = EducationLevel.NONE;
 
     @Column
     private String experienceYear;
@@ -87,40 +87,6 @@ public class Vacancy {
     @Column(name = "created_at", nullable = false, columnDefinition = "default now()")
     @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
-
-
-
-    public enum EmploymentType {
-        FULL_TIME, PART_TIME, FREELANCE, INTERNSHIP
-    }
-
-    public enum LanguageLevel {
-        BEGINNER, INTERMEDIATE, UPPER_INTERMEDIATE, NATIVE, PROFICIENT
-    }
-
-    public enum Market {
-        INFORMATION_TECHNOLOGY,
-        SOFTWARE_DEVELOPMENT,
-        MANAGEMENT,
-        DESIGN,
-        WEB_DEVELOPMENT,
-        EDUCATION,
-        SALES,
-        MARKETING,
-        TRAVEL,
-        DEVOPS,
-        ART,
-        SCIENCE
-
-    }
-
-    public enum Currency {
-        DOLLAR, EURO, SUM
-    }
-
-    public enum EducationLevel {
-        BACHELORS, MASTERS, NONE, HIGH_SCHOOL,
-    }
 
 
 }

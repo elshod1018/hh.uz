@@ -1,13 +1,12 @@
 package uz.hh.config.enums;
 
-public enum EmploymentForm {
-    REMOTE("Remote"),
-    IN_OFFICE("In Office"),
-    HYBRID("Hybrid");
-
+public enum Language {
+    UZBEK("Uzbek"),
+    RUSSIAN("Russian"),
+    ENGLISH("English");
     private final String displayValue;
 
-    EmploymentForm(String displayValue) {
+    Language(String displayValue) {
         this.displayValue = displayValue;
     }
 
@@ -15,4 +14,3 @@ public enum EmploymentForm {
         return displayValue;
     }
 }
-

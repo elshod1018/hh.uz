@@ -1,18 +1,17 @@
 package uz.hh.config.enums;
 
-public enum EmploymentForm {
-    REMOTE("Remote"),
-    IN_OFFICE("In Office"),
-    HYBRID("Hybrid");
-
+public enum EducationLevel {
+    BACHELORS("Bachelor's"),
+    MASTERS("Masters"),
+    NONE("None"),
+    HIGH_SCHOOL("High  school");
     private final String displayValue;
 
-    EmploymentForm(String displayValue) {
+    EducationLevel(String displayValue) {
         this.displayValue = displayValue;
     }
 
     public String getDisplayValue() {
         return displayValue;
     }
-}
-
+    }

@@ -7,23 +7,92 @@
     <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-<div>
+<div class="container">
     <form>
         <a th:href="@{/vacancy/main}" type="button" class="carousel-control-prev-icon; btn-warening"> Back</a>
-        <h3 style="text-align: center">Create a new  vacancy</h3>
-        <p> </p>
+        <h3 style="text-align: center">Create a new vacancy</h3>
+        <p></p>
         <hr>
         <div class="form-floating mb-3">
             <input type="text" class="form-control" id="title" name="title" placeholder="Title">
             <label for="title">Title</label>
         </div>
-        <div class="col-3">
-            <input type="date" th:value="${localDate}"
-                   th:min="${#dates.format(#dates.createNow(), 'dd-mm-yyyy')}" />
-            <select name="Employement Form">
-                <option th:each="colorOpt : ${T(uz.hh.config.enums.EmploymentForm).values()}"
-                        th:value="${colorOpt}" th:text="${colorOpt}"></option>
+        <div class="row">
+            <div>
+                <label>Application deadline</label>
+                <input type="date" th:value="${localDate}"
+                       th:min="${#dates.format(#dates.createNow(), 'dd-mm-yyyy')}"/>
+            </div>
+            <div>
+                <label>Employment Form</label>
+                <select class="form-select" aria-label="Default select example"` name="employmet_form">
+                    <option th:each="e_form : ${T(uz.hh.config.enums.EmploymentForm).values()}"
+                            th:value="${e_fomr}" th:text="${e_form.getDisplayValue()}"></option>
+                </select>
+            </div>
+            <div>
+                <label for="employment_type">Employment Type</label>
+                <select class="form-select" aria-label="Default select example" id="employment_type" name="employment_type">
+                    <option th:each="e_type : ${T(uz.hh.config.enums.EmploymentType).values()}"
+                            th:value="${e_type}" th:text="${e_type.getDisplayValue()}"></option>
+                </select>
+            </div>
+            <div>
+                <label for="region">Region</label>
+                <select class="form-select" aria-label="Default select example" id="region" name="region">
+                    <option th:each="region : ${T(uz.hh.config.enums.Region).values()}"
+                            th:value="${region}" th:text="${region.getDisplayValue()}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <label for="lang">Language</label>
+                <select class="form-select" aria-label="Default select example" id="lang" name="lang">
+                    <option th:each="lang : ${T(uz.hh.config.enums.Language).values()}"
+                            th:value="${lang}" th:text="${lang.getDisplayValue()}"></option>
+                </select>
+            </div>
+            <div>
+                <label for="langlevel">Level</label>
+                <select class="form-select" aria-label="Default select example" id="langlevel" name="lang">
+                    <option th:each="langlevel : ${T(uz.hh.config.enums.LanguageLevel).values()}"
+                            th:value="${langlevel}" th:text="${langlevel.getDisplayValue()}"></option>
+                </select>
+            </div>
+        </div>
+        <div>
+            <label for="market">Market</label>
+            <select class="form-select" aria-label="Default select example" id="market" name="market">
+                <option th:each="market : ${T(uz.hh.config.enums.Market).values()}"
+                        th:value="${market}" th:text="${market.getDisplayValue()}"></option>
             </select>
+        </div>
+        <div>
+            <label for="salary"> Salary </label>
+            <input type="number" class="form-control" id="salary" placeholder="Salary">
+        </div>
+        <div>
+            <label for="currency">Currency</label>
+            <select class="form-select" aria-label="Default select example" id="currency" name="currency">
+                <option th:each="currency : ${T(uz.hh.config.enums.Currency).values()}"
+                        th:value="${currency}" th:text="${currency.getDisplayValue()}"></option>
+            </select>
+        </div>
+        <div>
+            <label for="edc_level">Education Level</label>
+            <select class="form-select" aria-label="Default select example" id="edc_level" name="edc_level">
+                <option th:each="edc_level : ${T(uz.hh.config.enums.EducationLevel).values()}"
+                        th:value="${edc_level}" th:text="${edc_level.getDisplayValue()}"></option>
+            </select>
+        </div>
+        <div>
+            <label for="experience"> Years of Experience </label>
+            <input type="number" class="form-control" id="experience" placeholder="Experience">
+        </div>
+        <div>
+            <label class="form-label" for="description"></label>
+            <textarea cols="form-control" id = "description" name="description"></textarea>
         </div>
     </form>
 </div>

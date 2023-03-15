@@ -1,13 +1,11 @@
 package uz.hh.config.enums;
 
-public enum EmploymentForm {
-    REMOTE("Remote"),
-    IN_OFFICE("In Office"),
-    HYBRID("Hybrid");
+public enum Currency {
+    DOLLAR("$ dollar"), EURO("€ euro"), SUM("sum");
 
     private final String displayValue;
 
-    EmploymentForm(String displayValue) {
+    Currency(String displayValue) {
         this.displayValue = displayValue;
     }
 
@@ -15,4 +13,3 @@ public enum EmploymentForm {
         return displayValue;
     }
 }
-
