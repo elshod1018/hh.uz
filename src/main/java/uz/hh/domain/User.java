@@ -1,17 +1,18 @@
 package uz.hh.domain;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
+
+import uz.hh.enums.Role;
+import uz.hh.enums.Status;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "users")
@@ -22,41 +23,49 @@ public class User {
     @GeneratedValue(generator = "uuid2")
     private String id;
     @Column(nullable = false)
-    @NotBlank
     private String fullName;
     @Column(nullable = false, unique = true)
-    @NotBlank
     private String username;
     @Column(nullable = false, unique = true)
-    @NotBlank
     private String email;
     @Column(nullable = false)
-    @NotBlank
     private String password;
     @Column(nullable = false)
     @Builder.Default
     @Enumerated(EnumType.STRING)
-    private Status status = Status.NOT_ACTIVE;
-
+    private Status status = Status.ACTIVE;
+    @Column(nullable = false)
+    @Builder.Default
+    @Enumerated(EnumType.STRING)
+    private Role role = Role.USER;
     @ManyToMany(cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)
     @JoinTable(
-            name = "users_roles",
+            name = "users_chats",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
+            inverseJoinColumns = @JoinColumn(name = "chat_id", referencedColumnName = "id")
     )
-    private Set<Role> roles;
-    @OneToMany(cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER)
     private Set<Chat> chats;
 
     @OneToMany(cascade = CascadeType.ALL,
+            mappedBy = "user",
             fetch = FetchType.EAGER)
     private Set<Resume> resumes;
 
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER,
+            mappedBy = "owner")
+    private Set<Vacancy> vacancies;
+    @Column(name = "region", nullable = false)
+    private String region;
+    @Column(name = "company_name")
+    private String companyName;
+    @Column(name = "phone_number")
+    private String phoneNumber;
     @Builder.Default
     @Column(name = "is_deleted", nullable = false)
     private boolean is_deleted = false;
+    @CreationTimestamp
     @Column(name = "created_at", nullable = false, columnDefinition = "timestamp default now()")
     @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();

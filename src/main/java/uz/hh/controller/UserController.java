@@ -23,7 +23,7 @@ public class UserController {
         return mav;
     }
 
-    @PostMapping("/register")
+    /*@PostMapping("/register")
     public String register(@ModelAttribute UserCreateDTO dto) {
         User authUser = User.builder()
                 .username(dto.username())
@@ -32,7 +32,7 @@ public class UserController {
                 .build();
         userRepository.save(authUser);
         return "redirect:/login";
-    }
+    }*/
 
     @GetMapping("/login")
     public ModelAndView loginPage(@RequestParam(required = false) String error) {

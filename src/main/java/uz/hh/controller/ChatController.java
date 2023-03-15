@@ -8,7 +8,11 @@ import org.springframework.web.bind.annotation.*;
 import uz.hh.config.security.UserSession;
 import uz.hh.domain.*;
 import uz.hh.dto.ChatCreateDTO;
+import uz.hh.dto.ChatUpdateDTO;
 import uz.hh.dto.MessageCreateDTO;
+import uz.hh.enums.Role;
+import uz.hh.enums.Status;
+import uz.hh.enums.VacancyStatus;
 import uz.hh.service.ChatService;
 
 import java.time.LocalDateTime;
@@ -31,13 +35,13 @@ public class ChatController {
         return "chat/userchats";
     }
 
-    @GetMapping("/employerchats")
+/*    @GetMapping("/employerchats")
     @PreAuthorize("hasAnyRole('EMPLOYER')")
     public String employerChatPage(Model model) {
         List<Chat> employerChats = chatService.getEmployerChats(userSession.getId());
         model.addAttribute("chats", employerChats);
         return "userchats";
-    }
+    }*/
 
 //    @GetMapping("/create")
 //    @PreAuthorize("hasAnyRole('USER')")
@@ -49,7 +53,7 @@ public class ChatController {
     @GetMapping("/create")
     @PreAuthorize("hasAnyRole('USER')")
     public String create(@ModelAttribute ChatCreateDTO dto) {
-        chatService.chatCreate(dto, userSession.getUser());
+        Chat chat = chatService.chatCreate(dto, userSession.getUser());
         return "redirect:/chat/userchats";
     }
 
@@ -67,27 +71,26 @@ public class ChatController {
                 .username("e")
                 .fullName("e")
                 .status(Status.ACTIVE)
-                .resumes(new HashSet<>()).roles(new HashSet<>())
+                .role(Role.USER)
+                .resumes(new HashSet<>())
                 .build();
-        Employer employer = new Employer();
-        Vacancy vacancy = Vacancy.builder().id("1").employer(employer).build();
+        Vacancy vacancy = Vacancy.builder().id("1").owner(new User()).build();
         Set<Message> messageSet = Set.of(new Message("1", "1", new Chat(), "Salomalekum", LocalDateTime.now()),
                 new Message("2", "1", new Chat(), "Salomalekum", LocalDateTime.now()),
                 new Message("2", "1", new Chat(), "Salomalekum", LocalDateTime.now()),
                 new Message("3", "1", new Chat(), "Salomalekum", LocalDateTime.now()));
-        chat = new Chat("1", user, vacancy, employer,
+        chat = new Chat("1", Set.of(user), vacancy,
                 messageSet,
-                VacancyStatus.APPLIED, LocalDateTime.now(), LocalDateTime.now());
+                VacancyStatus.APPLIED,
+                LocalDateTime.now(),
+                LocalDateTime.now());
         model.addAttribute("chat", chat);
         return "chat/message";
     }
 
     @PostMapping("/message")
-    public String message(@ModelAttribute MessageCreateDTO dto, @RequestParam(name = "chatId") String chatId) {
-        Chat chatById = chatService.getChatById(chatId);
-        Set<Message> messages = chatById.getMessages();
-        messages.add(Message.builder().text(dto.getText()).ownerId("1").build());
-        Chat update = chatService.update(chatById);
+    public String message(@ModelAttribute ChatUpdateDTO dto, @RequestParam(name = "chatId") String chatId) {
+        Chat update = chatService.update(dto,chatId);
         return "redirect:/chat/message?chatId=" + chatId;
     }
 

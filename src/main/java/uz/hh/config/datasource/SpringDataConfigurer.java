@@ -51,7 +51,7 @@ public class SpringDataConfigurer {
     @Bean
     public PlatformTransactionManager transactionManager(
             LocalContainerEntityManagerFactoryBean entityManagerFactoryBean) {
-        return new JpaTransactionManager(entityManagerFactoryBean.getObject());
+        return new JpaTransactionManager(Objects.requireNonNull(entityManagerFactoryBean.getObject()));
     }
 
 

@@ -1,4 +1,4 @@
-package uz.hh.domain;
+package uz.hh.enums;
 
 public enum VacancyStatus {
     APPLIED, ACCEPT, REJECT

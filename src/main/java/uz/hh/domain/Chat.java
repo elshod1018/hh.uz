@@ -2,15 +2,15 @@ package uz.hh.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.web.service.annotation.GetExchange;
+import uz.hh.enums.VacancyStatus;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 
 @Getter
 @Setter
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -20,31 +20,26 @@ public class Chat {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @GeneratedValue(generator = "uuid2")
     private String id;
-    @ManyToOne(cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER,
-            optional = false)
-    private User candidate;
+    @ManyToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER,mappedBy = "chats")
+    private Set<User> users;
 
     @ManyToOne(cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER,
-            optional = false)
-    private Vacancy vacancy;
-
-    @ManyToOne(cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER,
-            optional = false)
-    private Employer employer;
-    @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)
+    private Vacancy vacancy;
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER,
+            mappedBy = "chat")
     private Set<Message> messages;
     @Builder.Default
     @Enumerated(EnumType.STRING)
     private VacancyStatus status = VacancyStatus.APPLIED;
 
     @Builder.Default
+    @CreationTimestamp
     @Column(nullable = false, name = "created_at", columnDefinition = "timestamp default now()")
     LocalDateTime createdAt = LocalDateTime.now();
-
+    @CreationTimestamp
     @Column(name = "updated_at", columnDefinition = "timestamp")
     LocalDateTime updatedAt;
 
