@@ -70,7 +70,7 @@ public class ChatController {
                 .resumes(new HashSet<>()).roles(new HashSet<>())
                 .build();
         Employer employer = new Employer();
-        Vacancy vacancy = new Vacancy("1", employer, new HashSet<>(), false, LocalDateTime.now());
+        Vacancy vacancy = Vacancy.builder().id("1").employer(employer).build();
         Set<Message> messageSet = Set.of(new Message("1", "1", new Chat(), "Salomalekum", LocalDateTime.now()),
                 new Message("2", "1", new Chat(), "Salomalekum", LocalDateTime.now()),
                 new Message("2", "1", new Chat(), "Salomalekum", LocalDateTime.now()),
