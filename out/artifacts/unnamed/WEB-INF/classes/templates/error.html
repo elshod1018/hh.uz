@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{fragments :: head(~{::title},~{::link})}">
+    <meta charset="UTF-8">
+    <title>Error Page</title>
+    <link rel="stylesheet" href="/css/homepage.css">
+</head>
+<body>
+
+<div style="margin-left: 30px;margin-top: 30px">
+    <h1 style="color: #5c636a">Sorry there is some error </h1>
+    <h3><span style="color: red">[[${errorM}]].</span><a href="/home" class="link-info" style="color: #0ea7f8;text-decoration: none">Go to Home</a></h3>
+</div>
+
+<section th:replace="fragments :: js_links"></section>
+</body>
+</html>

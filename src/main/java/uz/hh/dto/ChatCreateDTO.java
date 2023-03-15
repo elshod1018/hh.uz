@@ -1,7 +1,19 @@
 package uz.hh.dto;
 
-import uz.hh.domain.VacancyStatus;
 
-public record ChatCreateDTO(String candidateId, String vacancyId,
-                            String employerId, String messageId, VacancyStatus status) {
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class ChatCreateDTO {
+    private String vacancyId;
+    private String employerId;
+    private String messageId;
+
+
 }

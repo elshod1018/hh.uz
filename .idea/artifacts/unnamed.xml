@@ -60,6 +60,7 @@
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-web:6.0.1" />
           <element id="library" level="project" name="Maven: jakarta.validation:jakarta.validation-api:3.0.2" />
           <element id="library" level="project" name="Maven: org.hibernate.validator:hibernate-validator:7.0.5.Final" />
+          <element id="library" level="project" name="Maven: jakarta.servlet:jakarta.servlet-api:6.0.0" />
         </element>
       </element>
     </root>

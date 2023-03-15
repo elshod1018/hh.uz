@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head th:replace="~{fragments :: head(~{::title},~{::link})}">
     <meta charset="UTF-8">
     <title>Chats</title>
@@ -8,9 +9,22 @@
 <body>
 <section th:replace="~{fragments :: navbar}"></section>
 <div class="container col-md-4 col-lg-6 col-sm-2" style="margin-top: 20px">
-   <div th:object="${chat}">
-      <h4 th:text="${chat.getEmployer().getCompanyName()}"></h4>
-   </div>
+    <div th:object="${chat}">
+        <h4 th:text="${chat.getStatus()}"></h4>
+        <th:block th:each="message : ${chat.messages}">
+            <p>[[${message.text}]] <sub> [[${message.createdAt}]]</sub></p>
+        </th:block>
+    </div>
+    <form method="post" th:action="@{'/chat/message?chatId='+${chat.id}}">
+        <div class="mb-3 " style="width: 70%">
+            <input type="text" class="form-control" th:rows="2" id="exampleMessage" name="message"
+                   style="display: inline-block">
+        </div>
+        <button type="submit" class="btn btn-primary" style="display: inline-block">
+            send
+        </button>
+
+    </form>
 </div>
 <section th:replace="~{fragments :: js_links}"></section>
 </body>
