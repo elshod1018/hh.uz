@@ -10,8 +10,8 @@ import uz.hh.repository.VacancyRepository;
 public class VacancyService {
     private final VacancyRepository vacancyRepository;
 
-    public Vacancy save(){
-        Vacancy vacancy = null;
-        if ()
-    }
+//    public Vacancy save(){
+//        Vacancy vacancy = null;
+////        if ()
+//    }
 }
