@@ -3,15 +3,10 @@ package uz.hh.config.security;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import uz.hh.domain.Permission;
-import uz.hh.domain.Role;
-import uz.hh.domain.Status;
+import uz.hh.enums.Status;
 import uz.hh.domain.User;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Objects;
+import java.util.*;
 
 public class AuthUserDetails implements UserDetails {
 
@@ -23,16 +18,7 @@ public class AuthUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        var authRoles = Objects.requireNonNullElse(user.getRoles(), Collections.<Role>emptySet());
-        var authorities = new ArrayList<SimpleGrantedAuthority>();
-        authRoles.forEach(authRole -> {
-            authorities.add(new SimpleGrantedAuthority("ROLE_" + authRole.getCode()));
-            Collection<Permission> authPermissions = Objects.requireNonNullElse(authRole.getPermissions(), Collections.emptySet());
-            authPermissions.forEach(authPermission -> {
-                authorities.add(new SimpleGrantedAuthority(authPermission.getCode()));
-            });
-        });
-        return authorities;
+        return List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole()));
     }
 
     @Override

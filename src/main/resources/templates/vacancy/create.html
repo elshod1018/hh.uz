@@ -1,13 +1,118 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments :: head(~{::title},~{::link})}">
     <title>Vacancy Create Page</title>
     <link rel="stylesheet" href="">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/main.css">
+    <style>
+        .row {
+            margin-top: 5px;
+        }
+    </style>
 </head>
 <body>
+<div class="container">
+    <form method="post">
+        <a th:href="@{/vacancy/main}" class="btn btn-warning"> Back</a>
+        <h3 style="text-align: center">Create a new vacancy</h3>
+        <p></p>
+        <hr>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="title" name="title" placeholder="Title" required>
+            <label for="title">Title</label>
+        </div>
+        <div class="row">
+            <div>
+                <label for="application_deadline">Application deadline</label>
+                <input type="date" id="application_deadline" th:value="${localDate}" name="application_deadline"
+                       th:min="${#dates.format(#dates.createNow(), 'dd-mm-yyyy')}" required/>
+            </div>
+            <div>
+                <label for="emp_form">Employment Form</label>
+                <select class="form-select" id="emp_form" aria-label="Default select example" name="emp_form" required>
+                    <th:block th:each="e_form : ${T(uz.hh.enums.EmploymentForm).values()}">
+                        <option th:value="${e_form}" th:text="${e_form.getDisplayValue()}"/>
+                    </th:block>
+                </select>
+            </div>
+            <div>
+                <label for="employment_type">Employment Type</label>
+                <select class="form-select" aria-label="Default select example" id="employment_type"
+                        name="emp_type" required>
+                    <option th:each="e_type : ${T(uz.hh.enums.EmploymentType).values()}"
+                            th:value="${e_type}" th:text="${e_type.getDisplayValue()}"></option>
+                </select>
+            </div>
+            <div>
+                <label for="region">Region</label>
+                <select class="form-select" aria-label="Default select example" id="region" name="region" required>
+                    <th:block th:each="region : ${T(uz.hh.enums.Region).values()}">
+                        <option th:value="${region}" th:text="${region.getDisplayValue()}"/>
+                    </th:block>
+                    >
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <label for="lang">Language</label>
+                <select class="form-select" aria-label="Default select example" id="lang" name="language" required>
+                    <option th:each="lang : ${T(uz.hh.enums.Language).values()}"
+                            th:value="${lang}" th:text="${lang.getDisplayValue()}"></option>
+                </select>
+            </div>
+            <div>
+                <label for="langlevel">Level</label>
+                <select class="form-select" aria-label="Default select example" id="langlevel" name="language_level"
+                        required>
+                    <option th:each="langlevel : ${T(uz.hh.enums.LanguageLevel).values()}"
+                            th:value="${langlevel}" th:text="${langlevel.getDisplayValue()}"></option>
+                </select>
+            </div>
+        </div>
+        <div>
+            <label for="market">Market</label>
+            <select class="form-select" aria-label="Default select example" id="market" name="market" required>
+                <option th:each="market : ${T(uz.hh.enums.Market).values()}"
+                        th:value="${market}" th:text="${market.getDisplayValue()}"></option>
+            </select>
+        </div>
+        <div>
+            <label for="salary"> Salary </label>
+            <input type="number" class="form-control" id="salary" name="salary" placeholder="Salary" required>
+        </div>
+        <div>
+            <label for="currency">Currency</label>
+            <select class="form-select" aria-label="Default select example" id="currency" name="currency" required>
+                <option th:each="currency : ${T(uz.hh.enums.Currency).values()}"
+                        th:value="${currency}" th:text="${currency.getDisplayValue()}"></option>
+            </select>
+        </div>
+        <div>
+            <label for="edc_level">Education Level</label>
+            <select class="form-select" aria-label="Default select example" id="edc_level" name="educationLevel"
+                    required>
+                <option th:each="edc_level : ${T(uz.hh.enums.EducationLevel).values()}"
+                        th:value="${edc_level}" th:text="${edc_level.getDisplayValue()}"></option>
+            </select>
+        </div>
+        <div>
+            <label for="experience"> Years of Experience </label>
+            <input type="number" class="form-control" id="experience" placeholder="Experience" name="experienceYear"
+                   required>
+        </div>
+        <div>
+            <label class="form-label" for="description"></label>
+            <input class="form-control" id="description" name="description" required/>
+        </div>
+        <div>
+            <a class="btn btn-warning " th:href="@{/vacancy/main}"> Cancel</a>
+            <button type="submit" class="btn btn-success"> Save</button>
+        </div>
+    </form>
 
+</div>
 
 <script th:replace="fragments :: js_links"></script>
 </body>

@@ -7,5 +7,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ChatRepository extends JpaRepository<Chat, String> {
-    List<Chat> findAllByCandidateId(String id);
+
+    Chat getChatById(String id);
+
+    Optional<Chat> findChatById(String id);
+
+    List<Chat> findAllByUsersId(String id);
 }
