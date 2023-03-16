@@ -21,6 +21,7 @@ public class User {
     @Id
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @GeneratedValue(generator = "uuid2")
+    @Column(columnDefinition = "varchar default gen_random_uuid()")
     private String id;
     @Column(nullable = false)
     private String fullName;
@@ -54,7 +55,7 @@ public class User {
 
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.EAGER,
-            mappedBy = "owner")
+            mappedBy = "employer")
     private Set<Vacancy> vacancies;
     @Column(name = "region", nullable = false)
     private String region;

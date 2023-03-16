@@ -8,6 +8,7 @@ import uz.hh.enums.VacancyStatus;
 
 import java.time.LocalDateTime;
 import java.util.Set;
+import java.util.TreeSet;
 
 @Getter
 @Setter
@@ -21,7 +22,8 @@ public class Chat {
     @GeneratedValue(generator = "uuid2")
     private String id;
     @ManyToMany(cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER,mappedBy = "chats")
+            fetch = FetchType.EAGER,
+            mappedBy = "chats")
     private Set<User> users;
 
     @ManyToOne(cascade = CascadeType.ALL,

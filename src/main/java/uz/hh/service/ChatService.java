@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import uz.hh.domain.*;
 import uz.hh.dto.ChatCreateDTO;
 import uz.hh.dto.ChatUpdateDTO;
+import uz.hh.dto.MessageCreateDTO;
 import uz.hh.enums.VacancyStatus;
 import uz.hh.repository.ChatRepository;
 
@@ -23,10 +24,13 @@ public class ChatService {
 
     public Chat chatCreate(ChatCreateDTO dto, User user) {
         Vacancy vacancy = vacancyService.getById(dto.getVacancyId());
-        Set<Message> messages = Set.of(messageService.getById(dto.getMessageId()));
+        MessageCreateDTO messageCreateDTO = MessageCreateDTO.builder()
+                .text(dto.getText())
+                .build();
+        Set<Message> messages = Set.of(messageService.create(messageCreateDTO, user.getId()));
         Chat chat = Chat.builder()
                 .vacancy(vacancy)
-                .users(Set.of(vacancy.getOwner(), user))
+                .users(Set.of(vacancy.getEmployer(), user))
                 .messages(messages)
                 .status(VacancyStatus.APPLIED)
                 .build();
@@ -35,24 +39,26 @@ public class ChatService {
     }
 
     public Chat getChatById(String chatId) {
-        Optional<Chat> chatById = chatRepository.findChatById(chatId);
-        return chatById.orElse(null);
+        return chatRepository.findChatById(chatId).orElse(null);
     }
 
 
     public Chat update(ChatUpdateDTO dto, String chatId) {
         Chat chatById = getChatById(chatId);
-        chatById.setUpdatedAt(LocalDateTime.now());
-        Message message = Message.builder()
-                .text(dto.getText())
-                .build();
-        chatById.getMessages().add(message);
-        String dtoStatus = dto.getStatus();
-        if (dtoStatus != null) {
-            VacancyStatus status = VacancyStatus.valueOf(dtoStatus.toUpperCase());
-            chatById.setStatus(status);
+        if (chatById != null) {
+            chatById.setUpdatedAt(LocalDateTime.now());
+            Message message = Message.builder()
+                    .text(dto.getText())
+                    .build();
+            chatById.getMessages().add(message);
+            String dtoStatus = dto.getStatus();
+            if (dtoStatus != null) {
+                VacancyStatus status = VacancyStatus.valueOf(dtoStatus.toUpperCase());
+                chatById.setStatus(status);
+            }
+            return chatRepository.save(chatById);
         }
-        return chatRepository.save(chatById);
+        return null;
     }
 
     public List<Chat> getUserChats(String userId) {

@@ -9,7 +9,6 @@ import uz.hh.config.security.UserSession;
 import uz.hh.domain.*;
 import uz.hh.dto.ChatCreateDTO;
 import uz.hh.dto.ChatUpdateDTO;
-import uz.hh.dto.MessageCreateDTO;
 import uz.hh.enums.Role;
 import uz.hh.enums.Status;
 import uz.hh.enums.VacancyStatus;
@@ -35,21 +34,6 @@ public class ChatController {
         return "chat/userchats";
     }
 
-/*    @GetMapping("/employerchats")
-    @PreAuthorize("hasAnyRole('EMPLOYER')")
-    public String employerChatPage(Model model) {
-        List<Chat> employerChats = chatService.getEmployerChats(userSession.getId());
-        model.addAttribute("chats", employerChats);
-        return "userchats";
-    }*/
-
-//    @GetMapping("/create")
-//    @PreAuthorize("hasAnyRole('USER')")
-//    public String create() {
-//
-//        return "chat/create";
-//    }
-
     @GetMapping("/create")
     @PreAuthorize("hasAnyRole('USER')")
     public String create(@ModelAttribute ChatCreateDTO dto) {
@@ -60,7 +44,6 @@ public class ChatController {
     @GetMapping("/message")
     public String messagePage(Model model, @RequestParam(name = "chatId", required = false) String chatId) {
         Chat chat = chatService.getChatById(chatId);
-
         System.out.println(chat + " : " + chatId);
 //        if (Objects.isNull(chat)) {
 //            return "redirect:/chat/userchats";
@@ -74,12 +57,14 @@ public class ChatController {
                 .role(Role.USER)
                 .resumes(new HashSet<>())
                 .build();
-        Vacancy vacancy = Vacancy.builder().id("1").owner(new User()).build();
-        Set<Message> messageSet = Set.of(new Message("1", "1", new Chat(), "Salomalekum", LocalDateTime.now()),
-                new Message("2", "1", new Chat(), "Salomalekum", LocalDateTime.now()),
-                new Message("2", "1", new Chat(), "Salomalekum", LocalDateTime.now()),
-                new Message("3", "1", new Chat(), "Salomalekum", LocalDateTime.now()));
-        chat = new Chat("1", Set.of(user), vacancy,
+        Vacancy vacancy = Vacancy.builder().id("1").employer(user).build();
+        Message message1 = Message.builder().id("1").text("Boy ota").ownerId("1").build();
+        Message message2 = Message.builder().id("2").text("Boy ota").ownerId("1").build();
+        Message message3 = Message.builder().id("3").text("Boy ota").ownerId("1").build();
+        Message message4 = Message.builder().id("4").text("Boy ota").ownerId("1").build();
+        Set<Message> messageSet = Set.of(message1, message2, message3, message4);
+        User employer = User.builder().role(Role.EMPLOYER).id("2").build();
+        chat = new Chat("1", Set.of(user, employer), vacancy,
                 messageSet,
                 VacancyStatus.APPLIED,
                 LocalDateTime.now(),
@@ -90,7 +75,7 @@ public class ChatController {
 
     @PostMapping("/message")
     public String message(@ModelAttribute ChatUpdateDTO dto, @RequestParam(name = "chatId") String chatId) {
-        Chat update = chatService.update(dto,chatId);
+        Chat update = chatService.update(dto, chatId);
         return "redirect:/chat/message?chatId=" + chatId;
     }
 

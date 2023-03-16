@@ -12,7 +12,5 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ChatCreateDTO {
     private String vacancyId;
-    private String messageId;
-
-
+    private String text;
 }
