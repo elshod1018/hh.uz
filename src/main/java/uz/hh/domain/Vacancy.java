@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import uz.hh.config.enums.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -23,7 +24,7 @@ public class Vacancy {
     private String title;
 
     @Column(nullable = false)
-    private LocalDateTime application_deadline;
+    private LocalDate application_deadline;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -74,7 +75,8 @@ public class Vacancy {
 
     @ManyToOne
     @JoinColumn(name = "employer_id", nullable = false)
-    private Employer employer;
+    private User employer;
+
 
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)
