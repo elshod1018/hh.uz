@@ -2,10 +2,7 @@ package uz.hh.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDateTime;
@@ -14,7 +11,8 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 public class Resume {
     @Id
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
@@ -28,8 +26,7 @@ public class Resume {
     private String lastName;
 
     @ManyToOne(cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER,
-            optional = false)
+            fetch = FetchType.EAGER)
     private User user;
 
     @Column(nullable = false, unique = true)

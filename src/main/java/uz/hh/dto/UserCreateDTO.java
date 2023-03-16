@@ -1,59 +1,39 @@
 package uz.hh.dto;
 
-import java.util.Objects;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import lombok.*;
+import uz.hh.enums.Role;
 
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserCreateDTO {
-    private final String username;
-    private final String password;
-    private final String confirmPassword;
-    private final String email;
-
-    public UserCreateDTO(String username, String password, String confirmPassword, String email) {
-        this.username = username;
-        this.password = password;
-        this.confirmPassword = confirmPassword;
-        this.email = email;
-    }
-
-    public String username() {
-        return username;
-    }
-
-    public String password() {
-        return password;
-    }
-
-    public String confirmPassword() {
-        return confirmPassword;
-    }
-
-    public String email() {
-        return email;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (obj == null || obj.getClass() != this.getClass()) return false;
-        var that = (UserCreateDTO) obj;
-        return Objects.equals(this.username, that.username) &&
-                Objects.equals(this.password, that.password) &&
-                Objects.equals(this.confirmPassword, that.confirmPassword) &&
-                Objects.equals(this.email, that.email);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(username, password, confirmPassword, email);
-    }
-
-    @Override
-    public String toString() {
-        return "UserCreateDTO[" +
-                "username=" + username + ", " +
-                "password=" + password + ", " +
-                "confirmPassword=" + confirmPassword + ", " +
-                "email=" + email + ']';
-    }
-
+    @NotBlank(message = "Full name is required")
+    String fullName;
+    @NotBlank(message = "Username is required")
+    String username;
+    @NotBlank(message = "Email is required")
+    @Email(message = "Email is not valid")
+    String email;
+    @NotBlank(message = "Password is required")
+    String password;
+    @NotBlank(message = "Confirmation password is required")
+    String confirmPassword;
+    @NotBlank
+    private String firstName;
+    @NotBlank
+    private String lastName;
+    @NotBlank
+    @Pattern(regexp = "^(\\+998)\\d{9}", message = "Phone number is not valid")
+    private String phoneNumber;
+    @NotBlank
+    private String region;
+    @NotBlank
+    private String companyName;
+    @NotBlank
+    private Role role;
 }
