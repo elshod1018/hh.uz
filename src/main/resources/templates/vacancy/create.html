@@ -88,8 +88,8 @@
             </select>
         </div>
         <div>
-            <label for="edc_level">Education Level</label>
-            <select class="form-select" aria-label="Default select example" id="edc_level" name="edc_level" required>
+            <label for="educationLevel">Education Level</label>
+            <select class="form-select" aria-label="Default select example" id="educationLevel" name="educationLevel" required>
                 <option th:each="edc_level : ${T(uz.hh.config.enums.EducationLevel).values()}"
                         th:value="${edc_level}" th:text="${edc_level.getDisplayValue()}"></option>
             </select>
