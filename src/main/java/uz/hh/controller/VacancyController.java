@@ -1,6 +1,7 @@
 package uz.hh.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.time.LocalDate;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/vacancy")
+@PreAuthorize("hasAnyRole('EMPLOYER')")
 public class VacancyController {
     private final VacancyService vacancyService;
 

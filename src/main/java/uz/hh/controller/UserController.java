@@ -1,20 +1,26 @@
 package uz.hh.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import uz.hh.domain.User;
 import uz.hh.dto.UserCreateDTO;
+import uz.hh.enums.Role;
 import uz.hh.repository.UserRepository;
+import uz.hh.service.UserService;
+
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 public class UserController {
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final UserService userService;
 
     @GetMapping("/register")
     public ModelAndView registerPage() {
@@ -23,16 +29,39 @@ public class UserController {
         return mav;
     }
 
-    /*@PostMapping("/register")
-    public String register(@ModelAttribute UserCreateDTO dto) {
-        User authUser = User.builder()
-                .username(dto.username())
-                .password(passwordEncoder.encode(dto.password()))
-                .email(dto.email())
-                .build();
-        userRepository.save(authUser);
-        return "redirect:/login";
-    }*/
+    @GetMapping("/registerUser")
+    public String registerUserPage(Model model) {
+        UserCreateDTO userCreateDTO = new UserCreateDTO();
+        userCreateDTO.setRole(Role.USER);
+        model.addAttribute("user", userCreateDTO);
+        return "auth/registerUser";
+    }
+
+    @GetMapping("/registerEmployer")
+    public String registerEmployerPage(Model model) {
+        UserCreateDTO employerCreateDTO = new UserCreateDTO();
+        employerCreateDTO.setRole(Role.EMPLOYER);
+        model.addAttribute("user", employerCreateDTO);
+        return "auth/registerUser";
+    }
+
+    @PostMapping("/registerUser")
+    public String registerUser(@Valid @ModelAttribute("user") UserCreateDTO dto, BindingResult errors) {
+        System.out.println("dto = " + dto);
+
+        if (errors.hasErrors()) {
+            int errorCount = errors.getFieldErrorCount();
+            if ((dto.getRole().equals(Role.USER) && errorCount > 5) || (dto.getRole().equals(Role.EMPLOYER) && errorCount > 1)) {
+                return "auth/registerUser";
+            }
+        } else if (!Objects.equals(errors.getRawFieldValue("password"), errors.getRawFieldValue("confirmPassword"))) {
+            errors.rejectValue("password", "", "Passwords didn't match each other");
+            errors.rejectValue("confirmPassword", "", "Passwords didn't match each other");
+            return "auth/registerUser";
+        }
+        userService.save(dto);
+        return "redirect:/auth/login";
+    }
 
     @GetMapping("/login")
     public ModelAndView loginPage(@RequestParam(required = false) String error) {
@@ -41,7 +70,6 @@ public class UserController {
         mav.setViewName("auth/login");
         return mav;
     }
-
     @GetMapping("/logout")
     public ModelAndView logoutPage() {
         var mav = new ModelAndView();

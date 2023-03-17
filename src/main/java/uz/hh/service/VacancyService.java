@@ -9,6 +9,8 @@ import uz.hh.dto.VacancyCreateDto;
 import uz.hh.enums.Role;
 import uz.hh.repository.VacancyRepository;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class VacancyService {
@@ -34,8 +36,13 @@ public class VacancyService {
                 .currency(dto.getCurrency())
                 .salary(dto.getSalary())
                 .market(dto.getMarket())
-                .employer(User.builder().id("0354d090-c3f3-11ed-afa1-0242ac120002").role(Role.EMPLOYER).build())
+                .employer(userSession.getUser())
                 .build();
         return vacancyRepository.save(vacancy);
+    }
+
+    public List<Vacancy> findAll() {
+        vacancyRepository.findAll();
+        return null;
     }
 }

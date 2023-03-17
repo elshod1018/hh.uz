@@ -25,34 +25,32 @@ public class SecurityConfigurer {
             "/css/**",
             "/js/**",
             "/home",
-            "/vacancy/main",
-            "/auth/login",
+            "/auth/**",
             "/upload",
-            "/auth/register",
             "/"
     };
     private final AuthUserDetailsService authUserDetailsService;
     private final AuthenticationFailureHandler authenticationFailureHandler;
 
 
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
-                        authorizationManagerRequestMatcherRegistry
-                                .requestMatchers(WHITE_LIST)
-                                .permitAll()
-                                .anyRequest()
-                                .permitAll()
-//                                .authenticated()
+                                authorizationManagerRequestMatcherRegistry
+                                        .requestMatchers(WHITE_LIST)
+                                        .permitAll()
+                                        .anyRequest()
+//                                        .permitAll()
+                                        .authenticated()
                 )
                 .formLogin(httpSecurityFormLoginConfigurer ->
                         httpSecurityFormLoginConfigurer
                                 .loginPage("/auth/login")
                                 .loginProcessingUrl("/auth/login")
-                                .usernameParameter("uname")
-                                .passwordParameter("pswd")
+                                .usernameParameter("username")
+                                .passwordParameter("password")
+                                .successForwardUrl("/home")
                                 .defaultSuccessUrl("/home", false)
                                 .failureHandler(authenticationFailureHandler)
                 )
