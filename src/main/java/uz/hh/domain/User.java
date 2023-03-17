@@ -17,13 +17,18 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity(name = "users")
 @Builder
+@ToString
 public class User {
     @Id
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @GeneratedValue(generator = "uuid2")
     @Column(columnDefinition = "varchar default gen_random_uuid()")
     private String id;
-    @Column(nullable = false)
+    @Column
+    private String firstName;
+    @Column
+    private String lastName;
+    @Column
     private String fullName;
     @Column(nullable = false, unique = true)
     private String username;
@@ -57,14 +62,14 @@ public class User {
             fetch = FetchType.EAGER,
             mappedBy = "employer")
     private Set<Vacancy> vacancies;
-    @Column(name = "region", nullable = false)
+    @Column(name = "region")
     private String region;
     @Column(name = "company_name")
     private String companyName;
-    @Column(name = "phone_number")
+    @Column(name = "phone_number", unique = true)
     private String phoneNumber;
     @Builder.Default
-    @Column(name = "is_deleted", nullable = false)
+    @Column(name = "is_deleted", nullable = false, columnDefinition = "boolean default false")
     private boolean is_deleted = false;
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, columnDefinition = "timestamp default now()")

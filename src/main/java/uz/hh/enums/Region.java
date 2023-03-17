@@ -1,28 +1,29 @@
 package uz.hh.enums;
 
 public enum Region {
-    TASHKENT("Tashkent"),
-    ANDIJAN("Andijan"),
-    BUKHARA("Bukhara"),
+    TASHKENT("Toshkent shahri"),
+    TASHKENTVILOYATI("Tashkent viloyati"),
+    QARAQALPAQSTAN("Qaraqalpaqstan Respublikasi"),
+    ANDIJAN("Andijon viloyati"),
+    FERGANA("Farg'ona viloyati"),
+    NAMANGAN("Namangan viloyati"),
+    JIZZAX("Jizzax viloyati"),
+    QASHQADARYO("Qashqadaryo viloyati"),
+    SAMARKAND("Samarqand viloyati"),
+    NAVOIY("Navoiy viloyati"),
+    BUXARA("Buxoro viloyati"),
+    XOREZM("Xorazm viloyati"),
+    SURXANDARYA("Surxandaryo viloyati"),
+    SIRDARYA("Sirdaryo viloyati");
 
-    FERGANA("Fergana"),
-    JIZZAKH("Jizzakh"),
-    NAMANGAN("Namangan"),
-    NAVOIY("Navoiy"),
-    KASHKADARYA("Kashkadarya"),
-    SAMARKAND("Samarkand"),
-    SYRDARYA("Syrdarya"),
-    SURKHANDARYA("Surkhandarya"),
-    KHOREZM("Khorezm"),
-    KARAKALPAKSTAN("Karakalpakstan");
 
-    private final String displayValue;
+    private String regionName;
 
-    Region(String displayValue) {
-        this.displayValue = displayValue;
+    Region(String regionName) {
+        this.regionName = regionName;
     }
 
-    public String getDisplayValue() {
-        return displayValue;
+    public String getRegionName() {
+        return regionName;
     }
 }

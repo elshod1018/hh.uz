@@ -6,11 +6,12 @@ import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import uz.hh.enums.Role;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
+@ToString
 public class UserCreateDTO {
     @NotBlank(message = "Full name is required")
     String fullName;
@@ -34,6 +35,5 @@ public class UserCreateDTO {
     private String region;
     @NotBlank
     private String companyName;
-    @NotBlank
     private Role role;
 }
