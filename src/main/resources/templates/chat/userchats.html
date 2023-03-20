@@ -12,17 +12,12 @@
         <tbody>
         <th:block th:each="chat : ${chats}">
             <tr>
-                <a th:href="@{'/chat/message?chatId='+${chat.id}}">
-                    <p th:text="${chat.getEmployer().getCompanyName()}"></p>
-                    <p th:text="${chat.getVacancy().getEmployer()}"></p>
+                <a th:href="@{'/chat/message?chatId='+${chat.id}}"
+                   th:text="${chat.getVacancy().getEmployer().getCompanyName()}">
                 </a>
+                <p th:text="${chat.getVacancy().getEmployer().get}"></p>-->
             </tr>
         </th:block>
-        <tr>
-            <a th:href="@{/chat/message?chatId=1}">
-                Test
-            </a>
-        </tr>
         </tbody>
     </table>
 </div>

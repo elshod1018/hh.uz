@@ -7,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 import uz.hh.enums.VacancyStatus;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -24,7 +25,8 @@ public class Chat {
     @ManyToMany(cascade = CascadeType.ALL,
             fetch = FetchType.EAGER,
             mappedBy = "chats")
-    private Set<User> users;
+    @Builder.Default
+    private Set<User> users=new HashSet<>();
 
     @ManyToOne(cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)
@@ -32,7 +34,8 @@ public class Chat {
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.EAGER,
             mappedBy = "chat")
-    private Set<Message> messages;
+    @Builder.Default
+    private Set<Message> messages=new HashSet<>();
     @Builder.Default
     @Enumerated(EnumType.STRING)
     private VacancyStatus status = VacancyStatus.APPLIED;

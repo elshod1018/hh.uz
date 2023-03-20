@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+>
 <head th:replace="~{fragments :: head(~{::title},~{::link})}">
     <meta charset="UTF-8">
     <title>Main Page</title>
@@ -7,7 +9,22 @@
 </head>
 <body>
 <section th:replace="fragments :: navbar"></section>
-
+<div sec:authorize="hasAnyRole('USER')">
+    <div class="row">
+        <th:block th:each="vacancy : ${vacancies}" th:object="${vacancy}" >
+            <div class="col-lg-12 col-md-12 col-sm-12" style="height:240px;width:50%;margin-left:25%;margin-top: 5px">
+                <div class="card">
+                    <div class="card-body">
+                        <h3><a class="card-title" th:href="@{'/vacancy/getVacancy?vacancyId='+*{id}}" th:text="*{title}"></a></h3>
+                        <h4 th:text="*{region}"></h4>
+                        <a th:href="@{'/vacancy/getVacancy?vacancyId='+*{id}}"
+                           class="btn btn-primary">Info</a>
+                    </div>
+                </div>
+            </div>
+        </th:block>
+    </div>
+</div>
 <section th:replace="fragments :: js_links"></section>
 </body>
 </html>

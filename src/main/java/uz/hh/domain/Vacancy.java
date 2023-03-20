@@ -8,6 +8,7 @@ import uz.hh.enums.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Setter
@@ -28,7 +29,8 @@ public class Vacancy {
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.EAGER,
             mappedBy = "vacancy")
-    private Set<Chat> chats;
+    @Builder.Default
+    private Set<Chat> chats=new HashSet<>();
     @Column(name = "created_at", nullable = false, columnDefinition = "timestamp default now()")
     @Builder.Default
     @CreationTimestamp
@@ -36,7 +38,6 @@ public class Vacancy {
 
     @Column(nullable = false)
     private String title;
-
     @Column(nullable = false)
     private LocalDate application_deadline;
     @Enumerated(EnumType.STRING)

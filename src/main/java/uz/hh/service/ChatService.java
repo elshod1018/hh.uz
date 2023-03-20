@@ -2,6 +2,7 @@ package uz.hh.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import uz.hh.config.security.UserSession;
 import uz.hh.domain.*;
 import uz.hh.dto.ChatCreateDTO;
 import uz.hh.dto.ChatUpdateDTO;
@@ -10,10 +11,7 @@ import uz.hh.enums.VacancyStatus;
 import uz.hh.repository.ChatRepository;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -21,25 +19,35 @@ public class ChatService {
     private final ChatRepository chatRepository;
     private final VacancyService vacancyService;
     private final MessageService messageService;
+    private final UserSession userSession;
 
-    public Chat chatCreate(ChatCreateDTO dto, User user) {
+    public Chat chatCreate(ChatCreateDTO dto) {
         Vacancy vacancy = vacancyService.getById(dto.getVacancyId());
+        System.out.println(dto);
+        System.out.println(vacancy);
         MessageCreateDTO messageCreateDTO = MessageCreateDTO.builder()
                 .text(dto.getText())
                 .build();
-        Set<Message> messages = Set.of(messageService.create(messageCreateDTO, user.getId()));
+        Set<Message> messages = Set.of(messageService.create(messageCreateDTO, userSession.getId()));
+        System.out.println(messages);
         Chat chat = Chat.builder()
                 .vacancy(vacancy)
-                .users(Set.of(vacancy.getEmployer(), user))
+                .users(Set.of(vacancy.getEmployer(), userSession.getUser()))
                 .messages(messages)
                 .status(VacancyStatus.APPLIED)
                 .build();
-        chatRepository.save(chat);
+        vacancy.getChats().add(chat);
+        chat = chatRepository.save(chat);
+        System.out.println(chat);
         return chat;
     }
 
     public Chat getChatById(String chatId) {
         return chatRepository.findChatById(chatId).orElse(null);
+    }
+
+    public Chat getChatByVacancyId(String vacancyId) {
+        return chatRepository.getChatByVacancyId(vacancyId);
     }
 
 

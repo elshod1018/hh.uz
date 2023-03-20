@@ -42,7 +42,6 @@ public class VacancyService {
     }
 
     public List<Vacancy> findAll() {
-        vacancyRepository.findAll();
-        return null;
+        return vacancyRepository.findAll();
     }
 }

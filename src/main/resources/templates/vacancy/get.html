@@ -7,6 +7,18 @@
     <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-<h1 th:text="${vacancy}"></h1>
+<div style="width: 50%;margin-left: 25%;margin-top: 20px">
+    <a th:href="@{/home}" class="btn btn-secondary"> <- Back</a>
+    <h1 th:text="${vacancy.title}"></h1>
+    <p th:text="${vacancy.getEmp_form()}"></p>
+    <p th:text="${vacancy.getEmp_type()}"></p>
+    <p>Required work experience: [[${vacancy.getExperienceYear()}]]</p>
+    <form method="post" action="/chat/create" th:if="${status eq null}">
+        <input type="hidden" th:value="${vacancy.id}" name="vacancyId">
+        <input type="hidden" value="link" name="text">
+        <button type="submit" class="btn btn-success">Apply</button>
+    </form>
+    <p th:text="${vacancy.description}"></p>
+</div>
 </body>
 </html>

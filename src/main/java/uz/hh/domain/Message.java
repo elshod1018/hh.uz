@@ -14,6 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
+@ToString
 public class Message {
     @Id
     @GenericGenerator(name = "uuid2", strategy = "uuid2")

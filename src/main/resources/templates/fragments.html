@@ -44,7 +44,7 @@
                 </ul>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li sec:authorize="isAuthenticated()" class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/chat/userchats">
                             <img style="width: 50px; height: 50px;"
                                  src="https://cdn-icons-png.flaticon.com/512/134/134914.png">
                         </a>
@@ -56,18 +56,18 @@
                         </a>
                     </li>
                     <li sec:authorize="isAuthenticated() and hasAnyRole('USER')" class="nav-item">
-                        <a class="nav-link" href="/vacancy/main">
+                        <a class="nav-link" href="#">
                             <img style="width: 50px; height: 50px; background-color: transparent"
                                  src="https://icones.pro/wp-content/uploads/2021/02/icone-de-coeur-bleu.png">
                         </a>
                     </li>
                     <li sec:authorize="isAuthenticated() and hasAnyRole('EMPLOYER')" class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/vacancy/main">
                            Vacancy page
                         </a>
                     </li>
                 </ul>
-                <form  sec:authorize="isAuthenticated() and hasAnyRole('USER')" class="d-flex me-auto" role="search">
+                <form  sec:authorize="isAuthenticated() and hasAnyRole('USER')" method="post" action="/home" class="d-flex me-auto" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>

@@ -17,7 +17,6 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity(name = "users")
 @Builder
-@ToString
 public class User {
     @Id
     @GenericGenerator(name = "uuid2", strategy = "uuid2")

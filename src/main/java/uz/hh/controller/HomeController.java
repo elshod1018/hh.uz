@@ -5,7 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import uz.hh.domain.Vacancy;
 import uz.hh.service.VacancyService;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -14,7 +17,9 @@ public class HomeController {
 
     @GetMapping({"/", "/home"})
     public String homePage(Model model) {
-        model.addAttribute("vacancies", vacancyService.findAll());
+        List<Vacancy> all = vacancyService.findAll();
+        System.out.println(all);
+        model.addAttribute("vacancies", all);
         return "home";
     }
     @PostMapping({"/", "/home"})
