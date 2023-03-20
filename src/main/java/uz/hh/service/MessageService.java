@@ -2,6 +2,7 @@ package uz.hh.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import uz.hh.domain.Chat;
 import uz.hh.domain.Message;
 import uz.hh.dto.MessageCreateDTO;
 import uz.hh.repository.MessageRepository;
