@@ -59,13 +59,12 @@ public class VacancyService {
     }
 
     public String delete(String vacancyId) {
-        User user = userService.findById(userSession.getId());
         vacancyRepository.updateIs_deletedById(vacancyId);
         return vacancyId;
     }
 
     public Vacancy update(VacancyCreateDto dto, String vacancyId) {
-        User user = userService.findById(userSession.getId());
+        User user = userSession.getUser();
         Vacancy vacancy;
         try {
             vacancy = vacancyRepository.findById(vacancyId)
