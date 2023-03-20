@@ -37,7 +37,7 @@ public class VacancyService {
 
 
     public Vacancy create(VacancyCreateDto dto) {
-        User user = userService.findById(userSession.getId());
+        User user = userSession.getUser();
         Vacancy vacancy = Vacancy.builder()
                 .title(dto.getTitle())
                 .companyName(user.getCompanyName())
