@@ -6,24 +6,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import uz.hh.config.security.UserSession;
-import uz.hh.domain.Chat;
 import uz.hh.domain.User;
 import uz.hh.domain.Vacancy;
 import uz.hh.dto.VacancyCreateDto;
-import uz.hh.enums.VacancyStatus;
-import uz.hh.service.ChatService;
+import uz.hh.enums.Role;
+import uz.hh.repository.UserRepository;
+import uz.hh.service.UserService;
 import uz.hh.service.VacancyService;
 
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/vacancy")
 public class VacancyController {
     private final VacancyService vacancyService;
-    private final ChatService chatService;
     private final UserSession userSession;
+    private final UserService userService;
 
     @GetMapping("/main")
     @PreAuthorize("hasAnyRole('EMPLOYER')")
@@ -37,7 +37,6 @@ public class VacancyController {
         model.addAttribute("localDate", LocalDate.now());
         return "vacancy/create";
     }
-
     @PostMapping("/create")
     @PreAuthorize("hasAnyRole('EMPLOYER')")
     public String create(@ModelAttribute VacancyCreateDto dto) {
@@ -45,21 +44,53 @@ public class VacancyController {
         return "redirect:/vacancy/getVacancy?vacancyId=" + savedVacancy.getId();
 
     }
-
-    @GetMapping("/getVacancy")
-    public String getVacancy(@RequestParam(name = "vacancyId") String vacancyId, Model model) {
+    @GetMapping("/edit")
+    @PreAuthorize("hasAnyRole('EMPLOYER')")
+    public String edit(@RequestParam(name = "vacancyId") String vacancyId, Model model) {
+        User user = userService.findById("2ef3c668-14f7-47a9-b525-29b6c209a488"); // mashetta sessiondan ovolinadi user
+        if (!user.getRole().equals(Role.EMPLOYER)) return null;
         Vacancy vacancy = vacancyService.getById(vacancyId);
         model.addAttribute("vacancy", vacancy);
-        Chat chat = chatService.getChatByVacancyId(vacancyId);
-        if (chat != null) {
-            Set<User> users = chat.getUsers();
-            if (users != null && users.contains(userSession.getUser())) {
-                VacancyStatus status = chat.getStatus();
-                model.addAttribute("status", status);
-            }
-        }
+        model.addAttribute("localdate", vacancy.getApplication_deadline());
+        return "vacancy/edit";
+    }
+
+    @PostMapping("/edit")
+    @PreAuthorize("hasAnyRole('EMPLOYER')")
+    public String edit(@ModelAttribute VacancyCreateDto dto, @RequestParam(name = "vacancyId") String vacancyId) {
+//        String  vacancyId = (String) model.getAttribute("vacancyId");
+        Vacancy updatedVacancy = vacancyService.update(dto, vacancyId);
+        System.out.println(updatedVacancy.getId());
+        return "redirect:/vacancy/getList";
+    }
+
+    @GetMapping("/getList")
+    public String getlist(Model model) {
+        User user = userSession.getUser();
+        List<Vacancy> vacancies = vacancyService.getAllVacancy();
+        model.addAttribute("vacancies", vacancies);
+        model.addAttribute("user", user);
+        return "vacancy/list";
+    }
+    @GetMapping("/getVacancy")
+    @PreAuthorize("hasAnyRole('EMPLOYER')")
+    public String getVacancy(@RequestParam(name = "vacancyId") String vacancyId, Model model) {
+        User user = userSession.getUser();
+        Vacancy vacancy = vacancyService.getById(vacancyId);
+        model.addAttribute("vacancy", vacancy);
         return "vacancy/get";
     }
 
+    @PostMapping("/delete")
+    @PreAuthorize("hasAnyRole('EMPLOYER')")
+    public String delete(@ModelAttribute(name = "vacancyId") String vacancyId) {
+        vacancyService.delete(vacancyId);
+        return "redirect:/vacancy/list";
+    }
+
+    @GetMapping("/list")
+    public String list() {
+        return "vacancy/list";
+    }
 
 }

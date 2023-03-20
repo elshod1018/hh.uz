@@ -30,12 +30,13 @@ public class Vacancy {
             fetch = FetchType.EAGER,
             mappedBy = "vacancy")
     @Builder.Default
-    private Set<Chat> chats=new HashSet<>();
+    private Set<Chat> chats = new HashSet<>();
     @Column(name = "created_at", nullable = false, columnDefinition = "timestamp default now()")
     @Builder.Default
     @CreationTimestamp
     private LocalDateTime createdAt = LocalDateTime.now();
-
+    @Column(name = "company_name")
+    private String companyName;
     @Column(nullable = false)
     private String title;
     @Column(nullable = false)

@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+
+    <style>
+        .PersonalInfo{
+            border-left: 6px solid grey;
+            border-bottom: 6 px solid grey;
+            background-color:lightgrey;
+            display: block;
+            margin-left: 200px;
+            margin-right: 200px;
+            padding-left: 20px;
+            padding-top: 2px;
+            padding-bottom: 10px;
+            font-size: 18px;
+        }
+        .p_input{
+            border: none;
+            padding-left: 5px;
+            border-bottom: 2px solid #000000;
+            background-color: lightgrey;
+            margin-left: 100px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            font-size: 17px;
+            width: 500px;
+            height: 40px;
+        }
+        .table_input{
+            font-size: 16px;
+            border: none;
+            width: 200px;
+            height: 50px;
+        }
+
+        .table_input1{
+            font-size: 17px;
+            border: none;
+            width: 347px;
+            height: 50px;
+        }
+        table {
+            border-collapse: collapse;
+            background-color: white;
+        }
+        th, td {
+            border: 1px solid black;
+            height: 50px;
+            padding-left: 5px;
+            border-bottom: 1px solid black;
+        }
+
+        th {
+            background-color: lightblue;
+            color: white;
+        }
+
+        hr{
+            border: 1px solid white;
+            margin-right: 20px;
+
+        }
+
+
+        textarea {
+            border: none;
+            border: 2px solid grey;
+            width: 600px;
+            height: 200px;
+            font-size: 17px;
+            padding: 10px;
+        }
+
+        .pdf_button{
+            border: none;
+            border-radius: 5px;
+            border: 2px solid green;
+            background-color: gray;
+            width: 150px;
+            height: 50px;
+            float: center;
+            font-size: 18px;
+            margin-left: 80%;
+        }
+        .box1 {
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+    </style>
+
+
+
+</head>
+<body>
+<h1 style="text-align:center;">Resume Page</h1>
+<form method="post">
+<div class="PersonalInfo" id="perso">
+    <div class="box1">
+        <div>
+
+            <h2 style="color: blue;">Personal Information</h2>
+            <label for="f_name"><b>FirstName: </b></label>  <br>
+            <input type="text" class="p_input" id="f_name" name="firstName" /> <br>
+            <label for="l_name"><b>LastName: </b></label>  <br>
+            <input type="text" class="p_input" id="l_name" name="lastName"  /> <br>
+            <label for="email"><b>Email: </b></label> <br>
+            <input type="email" class="p_input" id="email" name="email"  /> <br>
+            <label for="address"><b>Address: </b></label> <br>
+            <input type="text" class="p_input" id="address" name="address" /> <br>
+            <label for="phone"><b>PhoneNumber: </b></label>  <br>
+            <input type="text" class="p_input" id="phone" name="phoneNumber" /> <br>
+            <label for="job"><b>Job: </b></label> <br>
+            <input type="text" class="p_input" id="job" name="job" />
+            <br> <br> <hr> <hr>
+        </div>
+        <div>
+
+
+            <br>
+            <label for="myfile" style="color: blue; font-size: 20px">Add Photo</label>
+            <input type="file" id="myfile" name="myfile">
+            <img id="img" height="150">
+
+            <br> <br> <hr> <hr>
+        </div>
+    </div>
+
+    <h2 style="color:blue">Profile</h2>
+    <textarea rows="4" cols="50" id="object" placeholder="Write About You" name="profile"></textarea>
+
+    <br> <br>
+    <hr> <hr>
+
+    <div class="Qualification">
+        <h2 style="color: blue;">Education</h2>
+        <table id="myTable" style="width: 98%" >
+            <col width="160">
+            <tr>
+                <th>Class</th>
+                <th>Year Of Passing</th>
+                <th>Board/University</th>
+                <th>Percentage %</th>
+            </tr>
+        </table>
+        <p> *Note</p>
+        <p style="text-align: right">
+            <button  class="btn btn-primary" id="createrow" onclick="myCreateFunction()">Create Row</button>
+            <button  class="btn btn-danger" id="deleterow" onclick="myDeleteFunction()">Delete Row</button>
+        </p>
+    </div>
+    <hr> <hr>
+
+    <div class="Qualification">
+        <h2 style="color: blue;">Language</h2>
+        <table id="myTableLang" style="width: 98%">
+            <col width="160">
+            <tr>
+                <th>Name</th>
+                <th>Level</th>
+            </tr>
+        </table>
+        <p> *Note</p>
+        <p style="text-align: right">
+            <button  class="btn btn-primary" id="createrowlang" onclick="myCreateFunctionLang()">Create Row</button>
+            <button  class="btn btn-danger" id="deleterowlang" onclick="myDeleteFunctionLang()">Delete Row</button>
+        </p>
+    </div>
+    <hr> <hr>
+    <div class="Qualification">
+        <h2 style="color: blue;">Links</h2>
+        <table id="myTableLink" style="width: 98%">
+            <col width="160">
+            <tr>
+                <th>Name</th>
+                <th>Url</th>
+            </tr>
+        </table>
+        <p>*Note</p>
+        <p style="text-align: right">
+            <button  class="btn btn-primary" id="createrowlink" onclick="myCreateFunctionLink()">Create Row</button>
+            <button  class="btn btn-danger" id="deleterowlink" onclick="myDeleteFunctionLink()">Delete Row</button>
+        </p>
+    </div>
+    <hr> <hr>
+    <h2 style="color: blue;">Experience</h2>
+    <textarea rows="4" cols="50" id="expert" name="experience"></textarea> <br>
+    <hr> <hr>
+
+    <h2 style="color: blue;">Technical-Skill</h2>
+    <textarea rows="4" cols="50" id="skill" name="tech_skill"></textarea> <br>
+    <hr> <hr>
+</div>
+    <button  type="submit" class="pdf_button" onclick="genPDF()" >Create Resume PDF</button>
+</form>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+<script type="text/javascript" src="html2canvas.js"></script>
+<script src="https://unpkg.com/jspdf@2.0.0/dist/jspdf.umd.min.js"></script>
+<script>
+    const myClass=[];
+    const myYear=[];
+    const myBoard=[];
+    const myPer=[];
+    const myLang=[];
+    const myLangLevel=[];
+    const myLinkName=[];
+    const myLink=[];
+
+    var rowcount=0;
+    var rowCountLang=0;
+    var rowCountLink=0;
+    function myCreateFunction(){
+        var Class=prompt("Enter your class");
+        var year=prompt("Enter Year");
+        var board=prompt("Enter Board/University ");
+        var per=prompt("Enter your level");
+        if(Class!=null){
+            var table =document.getElementById("myTable");
+            var row=table.insertRow(++rowcount);
+            var cell1=row.insertCell(0);
+            var cell2=row.insertCell(1);
+            var cell3=row.insertCell(2);
+            var cell4=row.insertCell(3);
+            cell1.innerHTML=Class.fontsize(4);
+            cell2.innerHTML=year.fontsize(4);
+            cell3.innerHTML=board.fontsize(4);
+            cell4.innerHTML=per.fontsize(4);
+            myClass.push(Class);
+            myYear.push(year);
+            myBoard.push(board);
+            myPer.push(per);
+
+        }
+        else {
+            alert("Please Enter Your Class");
+        }
+    }
+
+    function myCreateFunctionLang(){
+        var Class=prompt("Enter your language name");
+        var year=prompt("Enter your level");
+        if(Class!=null){
+            var table=document.getElementById("myTableLang");
+            var row=table.insertRow(++rowCountLang);
+            var cell1=row.insertCell(0);
+            var cell2=row.insertCell(1);
+            cell1.innerHTML=Class.fontsize(4);
+            cell2.innerHTML=year.fontsize(4);
+            myLang.push(Class);
+            myLangLevel.push(year);
+
+        }
+        else {
+            alert("Please Enter language ");
+        }
+    }
+
+
+    function myCreateFunctionLink(){
+        var Class=prompt("Enter your social media");
+        var year=prompt("Enter your links");
+        if(Class!=null){
+            var table=document.getElementById("myTableLink");
+            var row=table.insertRow(++rowCountLink);
+            var cell1=row.insertCell(0);
+            var cell2=row.insertCell(1);
+            cell1.innerHTML=Class.fontsize(4);
+            cell2.innerHTML=year.fontsize(4);
+            myLinkName.push(Class);
+            myLink.push(year);
+
+        }
+        else {
+            alert("Please Enter social media");
+        }
+    }
+
+    function myDeleteFunctionLink(){
+        if(rowCountLink===0){
+            return;
+        }
+        document.getElementById("myTableLink").deleteRow(rowCountLink);
+        --rowCountLink;
+        myLinkName.pop();
+        myLink.pop();
+    }
+    function myDeleteFunction(){
+        if(rowcount===0){
+            return;
+        }
+        document.getElementById("myTable").deleteRow(rowcount);
+        --rowcount;
+        myClass.pop();
+        myYear.pop();
+        myBoard.pop();
+        myPer.pop();
+    }
+    function myDeleteFunctionLang(){
+        if(rowCountLang===0){
+            return;
+        }
+        document.getElementById("myTableLang").deleteRow(rowCountLang);
+        --rowCountLang;
+        myLang.pop();
+        myLangLevel.pop();
+    }
+    let x=20;
+    let y=132;
+    let xl=20;
+    let yl=0;
+    let xlink=20;
+    let ylink=0;
+    let sum=0;
+    let sum2=0;
+    var doc=new jsPDF();
+    function genPDF(){
+
+
+        doc.setFontType("bold");
+        let elementById = document.getElementById("f_name");
+        doc.text(20,20,elementById.value+" "+document.getElementById("l_name").value);
+        doc.setFontType("normal");
+        doc.setFontSize(12);
+        doc.text(20,36,"Email:  "+document.getElementById("email").value);
+        doc.text(20,42,"Address:  "+document.getElementById("address").value);
+        doc.text(20,48,"Phone Number:  "+document.getElementById("phone").value);
+        doc.text(20,54,"Job:  "+document.getElementById("job").value);
+
+        var niceimage = new Image();
+        niceimage.src = 'https://www.vectorstock.com/royalty-free-vector/man-avatar-profile-vector-21372076';
+        doc.addImage(niceimage, 'JPEG', 132, 10, 70, 55);
+
+        doc.setFontType("bold");
+        doc.setFontSize(16);
+
+        //     onrendered:function (canvas){
+        //         var image=canvas.toDataURL("img/jpg");
+        //         doc.addImage(image,'JPG',20,20);
+        //     }
+        // })
+        // doc.setDrawColor('black');
+        // doc.setLineWidth(1/72);
+        // doc.line(0.5,0.5,0.5,11.25);
+        // doc.line(7.75,0.5,7.75,11.25);
+
+
+
+        doc.text(20,70,"Profile");
+        doc.setFontType("normal");
+        doc.setFontSize(12);
+
+        let profile=document.getElementById("object").value;
+        var strArr = doc.splitTextToSize(profile, 182)
+        doc.text(strArr, 20, 78);
+        doc.setFontType("bold");
+        doc.setFontSize(16);
+        doc.text(20,112,"Education");
+        doc.setFontSize(14);
+        doc.setFontType("normal");
+        doc.text(20,122,"Class");
+        doc.text(50,122,"Year of Passing");
+        doc.text(100,122,"Board/University");
+        doc.text(170,122,"Percentage");
+        doc.setFontSize(12);
+
+        for (let i = 0; i < myClass.length; i++) {
+            doc.text(x,y,myClass[i]);
+            doc.text(x+=30,y,myYear[i]);
+            doc.text(x+=50,y,myBoard[i]);
+            doc.text(x+=70,y,myPer[i]);
+            x=20; y=y+8;
+        }
+        doc.setFontType("bold");
+        doc.setFontSize(16);
+        doc.text(20,y+=10,"Languages");
+        doc.setFontType("normal");
+        doc.setFontSize(14);
+        doc.text(20,y+=10,"Name");
+        doc.text(50,y,"Level");
+        doc.setFontSize(12);
+
+        for (let i = 0; i < myLang.length; i++) {
+            doc.text(xl,y+=10,myLang[i]);
+            doc.text(xl+=30,y,myLangLevel[i]);
+            xl=20;
+        }
+
+        doc.setFontType("bold");
+        doc.setFontSize(16);
+        doc.text(20,y+=20,"Links");
+        doc.setFontSize(14);
+        doc.setFontType("normal");
+        doc.text(20,y+=10,"Name");
+        doc.text(50,y,"Url");
+
+
+        for (let i = 0; i < myLinkName.length; i++) {
+            doc.text(xlink,y+=10,myLinkName[i]);
+            doc.text(xlink+=30,y,myLink[i]);
+            xlink=20;
+        }
+
+        doc.setFontType("bold");
+        doc.setFontSize(16);
+        doc.text(20,y+=20,"Experience");
+        doc.setFontType("normal");
+        doc.setFontSize(12);
+        var p=document.getElementById("expert").value;
+        var strArr1 = doc.splitTextToSize(p, 182)
+        doc.text(strArr1, 20, y+=7);
+
+        doc.setFontType("bold");
+        doc.setFontSize(16);
+        doc.text(20,y+=32,"Technical-Skill");
+        doc.setFontType("normal");
+        var p1=document.getElementById("skill").value;
+        doc.setFontSize(12);
+        var strArr2 = doc.splitTextToSize(p1, 182)
+        doc.text(strArr2, 20, y+=8);
+        doc.save(elementById.value+".pdf");
+    }
+</script>
+
+
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/popper.min.js"></script>
+</body>
+</html>

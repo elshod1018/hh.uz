@@ -4,7 +4,6 @@ public enum RegionVacancy {
     TASHKENT("Tashkent"),
     ANDIJAN("Andijan"),
     BUKHARA("Bukhara"),
-
     FERGANA("Fergana"),
     JIZZAKH("Jizzakh"),
     NAMANGAN("Namangan"),

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head(~{::title},~{::link})}">
+    <title>Vacancy Get Page</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+
+    <title>Get All Vacansies</title>
+</head>
+<body>
+<section th:insert="fragments :: navbar"></section>
+<div class="container mb-5">
+    <div style="text-align: center">
+        <h1 th:if="${user.getRole().equals('EMPLOYER')}">
+            All your vacancies
+        </h1>
+        <h1 th:unless="${user.getRole().equals('EMPLOYER')}">
+            All vacancies
+        </h1>
+    </div>
+    <hr>
+    <div class="container mb-5" th:each="vacancy : ${vacancies}">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4 th:color="blue" th:text="${vacancy.title}"></h4>
+                <h5 th:text="${vacancy.salary}"></h5>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">
+                    <!--                <i class="iconify" data-icon="fa-solid:home"></i>-->
+                    <span th:text="${vacancy.companyName}"></span>
+                </h5>
+                <p class="card-text" th:text="${vacancy.region}"></p>
+                <div class="btn-group btn-group-horizontal" role="group">
+                    <a th:href="@{'/vacancy/getVacancy?vacancyId='+${vacancy.getId()}}" class="btn btn-success">Show
+                        vacancy</a>
+                    <a class="btn btn-success">Apply Now</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+</body>
+</html>

@@ -8,6 +8,8 @@ import uz.hh.dto.UserCreateDTO;
 import uz.hh.enums.Role;
 import uz.hh.repository.UserRepository;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -15,7 +17,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     public User save(UserCreateDTO dto) {
-        User authUser ;
+        User authUser;
         if (dto.getRole().equals(Role.EMPLOYER)) {
             authUser = User.builder()
                     .firstName(dto.getFirstName())
@@ -40,5 +42,10 @@ public class UserService {
         System.out.println("authUser = " + authUser);
         userRepository.save(authUser);
         return authUser;
+    }
+
+    public User findById(String id) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        return optionalUser.orElse(null);
     }
 }
