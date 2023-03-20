@@ -17,5 +17,6 @@ public interface VacancyRepository extends JpaRepository<Vacancy, String> {
 
     Vacancy getVacancyById(String id);
 
+    @Query("select v  from Vacancy v where v.employer =?1")
     List<Vacancy> findAllByEmployer(User employer);
 }
