@@ -50,8 +50,7 @@ public class User {
     )
     private Set<Chat> chats;
 
-    @OneToOne(
-            mappedBy = "user",
+    @OneToOne(mappedBy = "user",
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER
     )

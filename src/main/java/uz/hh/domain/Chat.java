@@ -27,8 +27,7 @@ public class Chat {
     @Builder.Default
     private Set<User> users=new HashSet<>();
 
-    @ManyToOne(cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER)
+    @ManyToOne
     private Vacancy vacancy;
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.EAGER,

@@ -75,8 +75,7 @@ public class Vacancy {
     private String experienceYear;
     @Column
     private String description;
-    @ManyToOne(cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER)
+    @ManyToOne
     private User employer;
 
 }
