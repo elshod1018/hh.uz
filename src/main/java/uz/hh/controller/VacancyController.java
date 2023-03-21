@@ -49,8 +49,6 @@ public class VacancyController {
     @GetMapping("/edit")
     @PreAuthorize("hasAnyRole('EMPLOYER')")
     public String edit(@RequestParam(name = "vacancyId") String vacancyId, Model model) {
-        User user = userService.findById("2ef3c668-14f7-47a9-b525-29b6c209a488"); // mashetta sessiondan ovolinadi user
-        if (!user.getRole().equals(Role.EMPLOYER)) return null;
         Vacancy vacancy = vacancyService.getById(vacancyId);
         model.addAttribute("vacancy", vacancy);
         model.addAttribute("localdate", vacancy.getApplication_deadline());

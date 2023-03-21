@@ -53,7 +53,7 @@
                         <label for="region">Region</label>
                         <select class="form-select" aria-label="Default select example" id="region" name="region"
                                 required>
-                            <th:block th:each="region : ${T(uz.hh.enums.Region).values()}">
+                            <th:block th:each="region : ${T(uz.hh.enums.RegionVacancy).values()}">
                                 <option th:value="${region}"
                                         th:text="${region.getDisplayValue()}"
                                         th:selected="${region == vacancy.getRegion()}"
