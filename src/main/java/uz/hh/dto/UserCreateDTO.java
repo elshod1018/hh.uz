@@ -13,27 +13,27 @@ import uz.hh.enums.Role;
 @Builder
 @ToString
 public class UserCreateDTO {
-    @NotBlank(message = "Full name is required")
+    @NotBlank(message = "auth.user.fullname.required")
     String fullName;
-    @NotBlank(message = "Username is required")
+    @NotBlank(message = "auth.user.username.required")
     String username;
-    @NotBlank(message = "Email is required")
-    @Email(message = "Email is not valid")
+    @NotBlank(message = "auth.user.email.required")
+    @Email(message = "auth.user.email.required")
     String email;
-    @NotBlank(message = "Password is required")
+    @NotBlank(message = "auth.user.password.required")
     String password;
-    @NotBlank(message = "Confirmation password is required")
+    @NotBlank(message = "auth.user.confirmation.password.required")
     String confirmPassword;
-    @NotBlank
+    @NotBlank(message = "auth.user.firstName.required")
     private String firstName;
-    @NotBlank
+    @NotBlank(message = "auth.user.lastName.required")
     private String lastName;
-    @NotBlank
-    @Pattern(regexp = "^(\\+998)\\d{9}", message = "Phone number is not valid")
+    @NotBlank(message = "auth.user.phoneNumber.required")
+    @Pattern(regexp = "^(\\+998)\\d{9}", message = "pattern.phone.number")
     private String phoneNumber;
-    @NotBlank
+    @NotBlank(message = "auth.user.region.required")
     private String region;
-    @NotBlank
+    @NotBlank(message = "auth.user.companyName.required")
     private String companyName;
     private Role role;
 }

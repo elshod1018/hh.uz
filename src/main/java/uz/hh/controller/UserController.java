@@ -47,16 +47,15 @@ public class UserController {
 
     @PostMapping("/registerUser")
     public String registerUser(@Valid @ModelAttribute("user") UserCreateDTO dto, BindingResult errors) {
-        System.out.println("dto = " + dto);
-
         if (errors.hasErrors()) {
             int errorCount = errors.getFieldErrorCount();
             if ((dto.getRole().equals(Role.USER) && errorCount > 5) || (dto.getRole().equals(Role.EMPLOYER) && errorCount > 1)) {
                 return "auth/registerUser";
             }
-        } else if (!Objects.equals(errors.getRawFieldValue("password"), errors.getRawFieldValue("confirmPassword"))) {
-            errors.rejectValue("password", "", "Passwords didn't match each other");
-            errors.rejectValue("confirmPassword", "", "Passwords didn't match each other");
+        }
+        if (!dto.getPassword().equals(dto.getConfirmPassword())) {
+            errors.rejectValue("password", "", "auth.user.passwords.not.match");
+            errors.rejectValue("confirmPassword", "", "auth.user.passwords.not.match");
             return "auth/registerUser";
         }
         userService.save(dto);

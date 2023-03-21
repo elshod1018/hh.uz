@@ -15,8 +15,6 @@ public interface VacancyRepository extends JpaRepository<Vacancy, String> {
     @Query("update Vacancy v set v.is_deleted = true where v.id = ?1")
     void updateIs_deletedById(String vacancyId);
 
-    Vacancy getVacancyById(String id);
-
     @Query("select v  from Vacancy v where v.employer =?1")
     List<Vacancy> findAllByEmployer(User employer);
 }

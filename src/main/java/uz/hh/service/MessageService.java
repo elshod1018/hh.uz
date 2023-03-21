@@ -21,6 +21,8 @@ public class MessageService {
     }
 
     public Message getById(String messageId) {
-        return messageRepository.getMessageById(messageId);
+        return messageRepository.
+                findById(messageId)
+                .orElse(null);
     }
 }

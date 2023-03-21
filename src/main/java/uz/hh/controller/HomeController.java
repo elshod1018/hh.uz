@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import uz.hh.config.security.UserSession;
+import uz.hh.domain.User;
 import uz.hh.domain.Vacancy;
 import uz.hh.service.VacancyService;
 
@@ -14,17 +16,20 @@ import java.util.List;
 @RequiredArgsConstructor
 public class HomeController {
     private final VacancyService vacancyService;
+    private final UserSession userSession;
 
     @GetMapping({"/", "/home"})
     public String homePage(Model model) {
-        List<Vacancy> all = vacancyService.findAll();
-        System.out.println(all);
-        model.addAttribute("vacancies", all);
+        User user = userSession.getUser();
+        List<Vacancy> vacancies = vacancyService.getAllVacancy();
+        model.addAttribute("vacancies", vacancies);
+        model.addAttribute("user", user);
         return "home";
     }
+
     @PostMapping({"/", "/home"})
     public String home(Model model) {
-        model.addAttribute("vacancies", vacancyService.findAll());
+        model.addAttribute("vacancies", vacancyService.getAllVacancy());
         return "home";
     }
 

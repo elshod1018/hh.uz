@@ -37,6 +37,7 @@ public class VacancyController {
         model.addAttribute("localDate", LocalDate.now());
         return "vacancy/create";
     }
+
     @PostMapping("/create")
     @PreAuthorize("hasAnyRole('EMPLOYER')")
     public String create(@ModelAttribute VacancyCreateDto dto) {
@@ -44,6 +45,7 @@ public class VacancyController {
         return "redirect:/vacancy/getVacancy?vacancyId=" + savedVacancy.getId();
 
     }
+
     @GetMapping("/edit")
     @PreAuthorize("hasAnyRole('EMPLOYER')")
     public String edit(@RequestParam(name = "vacancyId") String vacancyId, Model model) {
@@ -61,23 +63,16 @@ public class VacancyController {
 //        String  vacancyId = (String) model.getAttribute("vacancyId");
         Vacancy updatedVacancy = vacancyService.update(dto, vacancyId);
         System.out.println(updatedVacancy.getId());
-        return "redirect:/vacancy/getList";
+        return "redirect:/home";
     }
 
-    @GetMapping("/getList")
-    public String getlist(Model model) {
-        User user = userSession.getUser();
-        List<Vacancy> vacancies = vacancyService.getAllVacancy();
-        model.addAttribute("vacancies", vacancies);
-        model.addAttribute("user", user);
-        return "vacancy/list";
-    }
     @GetMapping("/getVacancy")
-    @PreAuthorize("hasAnyRole('EMPLOYER')")
+//    @PreAuthorize("hasAnyRole('EMPLOYER')")
     public String getVacancy(@RequestParam(name = "vacancyId") String vacancyId, Model model) {
         User user = userSession.getUser();
         Vacancy vacancy = vacancyService.getById(vacancyId);
         model.addAttribute("vacancy", vacancy);
+        model.addAttribute("user", user);
         return "vacancy/get";
     }
 
@@ -85,12 +80,6 @@ public class VacancyController {
     @PreAuthorize("hasAnyRole('EMPLOYER')")
     public String delete(@ModelAttribute(name = "vacancyId") String vacancyId) {
         vacancyService.delete(vacancyId);
-        return "redirect:/vacancy/list";
+        return "redirect:/home";
     }
-
-    @GetMapping("/list")
-    public String list() {
-        return "vacancy/list";
-    }
-
 }

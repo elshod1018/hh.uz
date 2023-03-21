@@ -24,7 +24,7 @@ public class Vacancy {
     @GeneratedValue(generator = "uuid2")
     private String id;
     @Builder.Default
-    @Column(name = "is_deleted", nullable = false)
+    @Column(name = "is_deleted",columnDefinition = "boolean default false", nullable = false)
     private boolean is_deleted = false;
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.EAGER,
@@ -83,7 +83,8 @@ public class Vacancy {
 
     @Column
     private String description;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER)
     private User employer;
 
 }

@@ -29,7 +29,7 @@ public class ChatController {
 
     @GetMapping("/userchats")
     public String userChatPage(Model model) {
-        List<Chat> userChats = chatService.getUserChats(userSession.getId());
+        List<Chat> userChats = chatService.getUserChats();
         model.addAttribute("chats", userChats);
         return "chat/userchats";
     }

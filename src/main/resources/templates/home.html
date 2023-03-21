@@ -6,23 +6,48 @@
     <meta charset="UTF-8">
     <title>Main Page</title>
     <link rel="stylesheet" href="/css/homepage.css">
+    <style>
+        body {
+            background-image: url("https://www.jobstreet.com.ph/en/cms/employer/wp-content/uploads/sites/19/2020/11/5-Trending-Jobs-in-the-New-Normal.jpg");
+        }
+    </style>
 </head>
 <body>
 <section th:replace="fragments :: navbar"></section>
-<div sec:authorize="hasAnyRole('USER')">
-    <div class="row">
-        <th:block th:each="vacancy : ${vacancies}" th:object="${vacancy}" >
-            <div class="col-lg-12 col-md-12 col-sm-12" style="height:240px;width:50%;margin-left:25%;margin-top: 5px">
-                <div class="card">
-                    <div class="card-body">
-                        <h3><a class="card-title" th:href="@{'/vacancy/getVacancy?vacancyId='+*{id}}" th:text="*{title}"></a></h3>
-                        <h4 th:text="*{region}"></h4>
-                        <a th:href="@{'/vacancy/getVacancy?vacancyId='+*{id}}"
-                           class="btn btn-primary">Info</a>
-                    </div>
+<div class="container mb-5">
+    <div style="text-align: center" sec:authorize="isAuthenticated()">
+        <h1 sec:authorize="${hasAnyRole('EMPLOYER')}">
+            All your vacancies
+        </h1>
+        <h1 sec:authorize="${hasAnyRole('USER')}">
+            All vacancies
+        </h1>
+    </div>
+    <hr>
+    <div class="container mb-5" th:each="vacancy : ${vacancies}">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4 th:color="blue" th:text="${vacancy.title}"></h4>
+                <h5 th:text="${vacancy.salary}"></h5>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">
+                    <!--                <i class="iconify" data-icon="fa-solid:home"></i>-->
+                    <span th:text="${vacancy.companyName}"></span>
+                </h5>
+                <p class="card-text" th:text="${vacancy.region}"></p>
+                <div class="btn-group btn-group-horizontal" role="group">
+                    <a th:href="@{'/vacancy/getVacancy?vacancyId='+${vacancy.getId()}}" class="btn btn-success">
+                        Show vacancy
+                    </a>
+                    <form sec:authorize="${hasAnyRole('USER')}" method="post" action="/chat/create">
+                        <input type="hidden" th:value="${vacancy.id}" name="vacancyId">
+                        <input type="hidden" th:value="'http://localhost:8080/download?id='+${user.resume.id}" name="text">
+                        <button type="submit" class="btn btn-success">Apply Now</button>
+                    </form>
                 </div>
             </div>
-        </th:block>
+        </div>
     </div>
 </div>
 <section th:replace="fragments :: js_links"></section>

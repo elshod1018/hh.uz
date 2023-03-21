@@ -23,11 +23,11 @@ public class User {
     @GeneratedValue(generator = "uuid2")
     @Column(columnDefinition = "varchar default gen_random_uuid()")
     private String id;
-    @Column
+    @Column(name = "first_name")
     private String firstName;
-    @Column
+    @Column(name = "last_name")
     private String lastName;
-    @Column
+    @Column(name = "full_name")
     private String fullName;
     @Column(nullable = false, unique = true)
     private String username;
@@ -35,11 +35,9 @@ public class User {
     private String email;
     @Column(nullable = false)
     private String password;
-    @Column(nullable = false)
     @Builder.Default
     @Enumerated(EnumType.STRING)
     private Status status = Status.ACTIVE;
-    @Column(nullable = false)
     @Builder.Default
     @Enumerated(EnumType.STRING)
     private Role role = Role.USER;
@@ -52,10 +50,12 @@ public class User {
     )
     private Set<Chat> chats;
 
-    @OneToMany(cascade = CascadeType.ALL,
+    @OneToOne(
             mappedBy = "user",
-            fetch = FetchType.EAGER)
-    private Set<Resume> resumes;
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER
+    )
+    private Resume resume;
 
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.EAGER,

@@ -1,20 +1,20 @@
 package uz.hh.enums;
 
 public enum Region {
-    TASHKENT("Toshkent shahri"),
-    TASHKENTVILOYATI("Tashkent viloyati"),
-    QARAQALPAQSTAN("Qaraqalpaqstan Respublikasi"),
-    ANDIJAN("Andijon viloyati"),
-    FERGANA("Farg'ona viloyati"),
-    NAMANGAN("Namangan viloyati"),
-    JIZZAX("Jizzax viloyati"),
-    QASHQADARYO("Qashqadaryo viloyati"),
-    SAMARKAND("Samarqand viloyati"),
-    NAVOIY("Navoiy viloyati"),
-    BUXARA("Buxoro viloyati"),
-    XOREZM("Xorazm viloyati"),
-    SURXANDARYA("Surxandaryo viloyati"),
-    SIRDARYA("Sirdaryo viloyati");
+    TASHKENT("tashkent.city"),
+    TASHKENTVILOYATI("tashkent.region"),
+    QARAQALPAQSTAN("qq.res"),
+    ANDIJAN("andijan.reg"),
+    FERGANA("fergana.reg"),
+    NAMANGAN("namangan.reg"),
+    JIZZAX("jizzakh.reg"),
+    QASHQADARYO("kashkadarya.reg"),
+    SAMARKAND("samarkand.reg"),
+    NAVOIY("navai.reg"),
+    BUXARA("bukhara.reg"),
+    XOREZM("khorezm.reg"),
+    SURXANDARYA("surkhandarya.reg"),
+    SIRDARYA("syrdarya.reg");
 
 
     private String regionName;

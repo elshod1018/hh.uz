@@ -8,87 +8,100 @@
 <div class="container m-5 mx-auto">
     <div class="row">
         <div class="col-md-10 offset-1">
-            <h1 class="mt-2 text-center">Register Page</h1>
+            <h1 class="mt-2 text-center" th:text="#{register.page}">Register Page</h1>
             <form method="post" th:action="@{/auth/registerUser}" th:object="${user}">
                 <input type="hidden" name="role" th:field="*{role}" th:value="${user.getRole()}">
-<!--                <input type="hidden" name="_csrf" th:value="${_csrf.getToken()}">-->
                 <div class="mb-3" th:if="${user.role == T(uz.hh.enums.Role).USER}">
-                    <label for="fullName" class="form-label">Fullname</label>
-                    <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Enter fullname" th:field="*{fullName}">
+                    <label for="fullName" class="form-label" th:text="#{register.fullname}"></label>
+                    <input type="text" class="form-control" id="fullName" name="fullName"
+                           th:placeholder="#{register.fullname.placeholder}" th:field="*{fullName}">
                     <span th:if="${#fields.hasErrors('fullName')}">
                     <p th:each="er : ${#fields.errors('fullName')}" th:text="${#messages.msg(er)}" class="text-danger"/>
                     </span>
                 </div>
 
-                <div class="mb-3" th:else>
-                    <input type="hidden" name="fullName" >
-                </div>
-
                 <div class="mb-3" th:if="${user.role == T(uz.hh.enums.Role).EMPLOYER}">
-                    <label for="firstName" class="form-label">Firstname</label>
-                    <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter firstname" th:field="*{firstName}">
+                    <label for="firstName" class="form-label" th:text="#{register.firstname}"></label>
+                    <input type="text" class="form-control" id="firstName" name="firstName"
+                           th:placeholder="#{register.firstname.placeholder}" th:field="*{firstName}">
                     <span th:if="${#fields.hasErrors('firstName')}">
-                    <p th:each="er : ${#fields.errors('firstName')}" th:text="${#messages.msg(er)}" class="text-danger"></p>
+                    <p th:each="er : ${#fields.errors('firstName')}" th:text="${#messages.msg(er)}"
+                       class="text-danger"></p>
                     </span>
                 </div>
                 <div class="mb-3" th:if="${user.role == T(uz.hh.enums.Role).EMPLOYER}">
-                    <label for="lastName" class="form-label">Lastname</label>
-                    <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter lastName" th:field="*{lastName}">
+                    <label for="lastName" class="form-label" th:text="#{register.lastname}"></label>
+                    <input type="text" class="form-control" id="lastName" name="lastName"
+                           th:placeholder="#{register.lastname.placeholder}" th:field="*{lastName}">
                     <span th:if="${#fields.hasErrors('lastName')}">
-                    <p th:each="er : ${#fields.errors('lastName')}" th:text="${#messages.msg(er)}" class="text-danger"></p>
+                    <p th:each="er : ${#fields.errors('lastName')}" th:text="${#messages.msg(er)}"
+                       class="text-danger"></p>
                     </span>
                 </div>
                 <div class="mb-3" th:if="${user.role == T(uz.hh.enums.Role).EMPLOYER}">
-                    <label for="phoneNumber" class="form-label">Phone number</label>
-                    <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="+998991234567" th:field="*{phoneNumber}">
+                    <label for="phoneNumber" class="form-label" th:text="#{register.phone.number}"></label>
+                    <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"
+                           placeholder="+998991234567" th:field="*{phoneNumber}">
                     <span th:if="${#fields.hasErrors('phoneNumber')}">
-                    <p th:each="er : ${#fields.errors('phoneNumber')}" th:text="${#messages.msg(er)}" class="text-danger"></p>
+                    <p th:each="er : ${#fields.errors('phoneNumber')}" th:text="${#messages.msg(er)}"
+                       class="text-danger"></p>
                     </span>
                 </div>
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
-                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" th:field="*{username}">
+                    <input type="text" class="form-control" id="username" name="username"
+                           th:placeholder="#{register.username.placeholder}" th:field="*{username}">
                     <span th:if="${#fields.hasErrors('username')}">
-                    <p th:each="er : ${#fields.errors('username')}" th:text="${#messages.msg(er)}" class="text-danger"></p>
+                    <p th:each="er : ${#fields.errors('username')}" th:text="${#messages.msg(er)}"
+                       class="text-danger"></p>
                     </span>
                 </div>
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter email address" th:field="*{email}">
-                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.(O'lay agar)</div>
+                    <label for="email" class="form-label" th:text="#{register.email}"></label>
+                    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp"
+                           th:placeholder="#{register.email.placeholder}" th:field="*{email}">
+                    <div id="emailHelp" class="form-text" th:text="#{register.email.fake.promise}"></div>
                     <span th:if="${#fields.hasErrors('email')}">
                     <p th:each="er : ${#fields.errors('email')}" th:text="${#messages.msg(er)}" class="text-danger"></p>
                     </span>
                 </div>
                 <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" th:field="*{password}">
+                    <label for="password" class="form-label" th:text="#{register.password}"></label>
+                    <input type="password" class="form-control" id="password" name="password"
+                           th:placeholder="#{register.password.placeholder}" th:field="*{password}">
                     <span th:if="${#fields.hasErrors('password')}">
-                    <p th:each="er : ${#fields.errors('password')}" th:text="${#messages.msg(er)}" class="text-danger"></p>
+                    <p th:each="er : ${#fields.errors('password')}" th:text="${#messages.msg(er)}"
+                       class="text-danger"></p>
                     </span>
                 </div>
                 <div class="mb-3">
-                    <label for="confirmPassword" class="form-label">Confirm Password</label>
-                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" th:field="*{confirmPassword}">
+                    <label for="confirmPassword" class="form-label" th:text="#{register.confirm.password}"></label>
+                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+                           th:placeholder="#{register.confirm.password.placeholder}" th:field="*{confirmPassword}">
                     <span th:if="${#fields.hasErrors('confirmPassword')}">
-                    <p th:each="er : ${#fields.errors('confirmPassword')}" th:text="${#messages.msg(er)}" class="text-danger"></p>
+                    <p th:each="er : ${#fields.errors('confirmPassword')}" th:text="${#messages.msg(er)}"
+                       class="text-danger"></p>
                     </span>
                 </div>
                 <div class="mb-3" th:if="${user.role == T(uz.hh.enums.Role).EMPLOYER}">
-                    <label for="region" class="form-label">Region</label>
+                    <label for="region" class="form-label" th:text="#{register.region}"></label>
                     <select class="form-select" aria-label="Default select example" id="region" name="region">
-                        <option value="">Select a region</option>
-                        <option th:each="r : ${T(uz.hh.enums.Region).values()}" th:value="${r.getRegionName()}" th:text="${r.getRegionName()}"></option>
+                        <option value="" th:text="#{register.selector.select.region}"></option>
+                        <option th:each="r : ${T(uz.hh.enums.Region).values()}" th:value="${r.getRegionName()}"
+                                th:text="${r.getRegionName()}"></option>
                     </select>
                 </div>
                 <div class="mb-3" th:if="${user.role == T(uz.hh.enums.Role).EMPLOYER}">
-                    <label for="companyName" class="form-label">Company Name</label>
-                    <input type="text" class="form-control" id="companyName" name="companyName" placeholder="Company Name" th:field="*{companyName}">
+                    <label for="companyName" class="form-label" th:text="#{register.company.name}"></label>
+                    <input type="text" class="form-control" id="companyName" name="companyName"
+                           th:placeholder="#{register.company.name.placeholder}" th:field="*{companyName}">
                     <span th:if="${#fields.hasErrors('companyName')}">
-                    <p th:each="er : ${#fields.errors('companyName')}" th:text="${#messages.msg(er)}" class="text-danger"></p>
+                    <p th:each="er : ${#fields.errors('companyName')}" th:text="${#messages.msg(er)}"
+                       class="text-danger"></p>
                     </span>
                 </div>
-                <button type="submit" class="btn btn-success">Register</button>
+                <a th:href="@{/auth/login}" class="link-info">Login</a>
+                <button type="submit" class="btn btn-success" th:text="#{auth.user.register}"></button>
             </form>
         </div>
     </div>

@@ -19,7 +19,6 @@ import java.util.Optional;
 public class VacancyService {
     private final VacancyRepository vacancyRepository;
     private final UserSession userSession;
-    private final UserService userService;
 
     public Vacancy getById(String vacancyId) {
         Optional<Vacancy> optionalVacancy = vacancyRepository.findById(vacancyId);
@@ -28,8 +27,7 @@ public class VacancyService {
 
     public List<Vacancy> getAllVacancy() {
         User user = userSession.getUser();
-        System.out.println(user);
-        if (user.getRole().equals(Role.USER)) {
+        if (user == null || user.getRole().equals(Role.USER)) {
             return vacancyRepository.findAll();
         }
         return vacancyRepository.findAllByEmployer(user);
@@ -38,6 +36,7 @@ public class VacancyService {
 
     public Vacancy create(VacancyCreateDto dto) {
         User user = userSession.getUser();
+        System.out.println(user.getUsername());
         Vacancy vacancy = Vacancy.builder()
                 .title(dto.getTitle())
                 .companyName(user.getCompanyName())
@@ -92,7 +91,7 @@ public class VacancyService {
         }
     }
 
-    public List<Vacancy> findAll() {
-        return vacancyRepository.findAll();
-    }
+//    public List<Vacancy> findAll() {
+//        return vacancyRepository.findAll();
+//    }
 }

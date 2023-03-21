@@ -10,11 +10,9 @@
         <div class="col-md-10 offset-1">
             <h1 class="mt-2 text-center">Login Page</h1>
             <form method="post" th:action="@{/auth/logout}">
-                <div class="alert alert-danger">
-                    Are you sure sing out ?
-                </div>
-                <button type="submit" class="btn btn-danger">Yes</button>
-                <a th:href="@{/home}" class="btn btn-success">Back</a>
+                <div class="alert alert-danger" th:text="#{logout.confirmation}"></div>
+                <button type="submit" class="btn btn-danger" th:text="#{logout.confirmation.yes}"></button>
+                <a th:href="@{/home}" class="btn btn-success" th:text="#{back.to.home.page}"></a>
             </form>
         </div>
     </div>

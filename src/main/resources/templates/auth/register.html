@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head th:replace="~{fragments :: head(~{::title},~{::link})}">
     <title>Registration Page</title>
     <link rel="stylesheet" href="">
@@ -13,20 +13,22 @@
         <div class="col-sm-6 mb-3 mb-sm-0">
             <div class="card">
                 <div class="card-body">
-                    <img src="https://cdn-icons-png.flaticon.com/512/4974/4974985.png" class="card-img-top" style="width: 100px; height: 100px" alt="Imagenot found">
-                    <h5 class="card-title">Job search</h5>
-                    <p class="card-text">Decent salary, More job opporunities, CV Generator</p>
-                    <a th:href="@{/auth/registerUser}" class="btn btn-primary">Register</a>
+                    <img src="https://cdn-icons-png.flaticon.com/512/4974/4974985.png" class="card-img-top"
+                         style="width: 100px; height: 100px" alt="Imagenot found">
+                    <h5 class="card-title" th:text="#{register.page.job.search}"></h5>
+                    <p class="card-text" th:text="#{register.page.job.search.description}"></p>
+                    <a th:href="@{/auth/registerUser}" class="btn btn-primary" th:text="#{auth.user.register}"></a>
                 </div>
             </div>
         </div>
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
-                    <img src="https://cdn-icons-png.flaticon.com/512/6550/6550916.png" class="card-img-top" style="width: 100px; height: 100px" alt="Imagenot found">
-                    <h5 class="card-title">Search for colleagues</h5>
-                    <p class="card-text">Job posting and access to resume database</p>
-                    <a th:href="@{/auth/registerEmployer}" class="btn btn-primary">Register</a>
+                    <img src="https://cdn-icons-png.flaticon.com/512/6550/6550916.png" class="card-img-top"
+                         style="width: 100px; height: 100px" alt="Imagenot found">
+                    <h5 class="card-title" th:text="#{register.page.colleague.search}"></h5>
+                    <p class="card-text" th:text="#{register.page.colleague.search.description}"></p>
+                    <a th:href="@{/auth/registerEmployer}" class="btn btn-primary" th:text="#{auth.user.register}"></a>
                 </div>
             </div>
         </div>

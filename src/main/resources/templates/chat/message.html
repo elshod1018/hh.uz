@@ -15,15 +15,14 @@
             <p>[[${message.text}]] <sub> [[${message.createdAt}]]</sub></p>
         </th:block>
     </div>
-    <form method="post" th:action="@{'/chat/message?chatId='+${chat.id}}">
-        <div class="mb-3 " style="width: 70%">
-            <input type="text" class="form-control" th:rows="2" id="exampleMessage" name="message"
-                   style="display: inline-block">
+    <form method="post" class="row g-3" th:action="@{'/chat/message?chatId='+${chat.id}}" >
+        <div class="col-auto">
+            <label for="InputText" class="visually-hidden">Text</label>
+            <input type="text" class="form-control" id="InputText" placeholder="Write smth">
         </div>
-        <button type="submit" class="btn btn-primary" style="display: inline-block">
-            send
-        </button>
-
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary mb-3">Send</button>
+        </div>
     </form>
 </div>
 <section th:replace="~{fragments :: js_links}"></section>

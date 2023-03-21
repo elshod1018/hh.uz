@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head th:replace="~{fragments :: head(~{::title},~{::link})}">
     <title>Vacancy Get Page</title>
     <link rel="stylesheet" href="">
@@ -34,7 +35,7 @@
 <section th:insert="fragments :: navbar"></section>
 <div class="container mb-5">
     <form>
-        <a th:href="@{/vacancy/create}" class="btn btn-info"> Back</a>
+        <a th:href="@{/home}" class="btn btn-info"> Back</a>
         <div style="margin-top: 25px">
             <label for="title" th:color="grey">Job</label>
             <h3 id="title" style="text-align: center" th:text="${vacancy.getTitle()}"></h3>
@@ -113,12 +114,19 @@
         </div>
 
 
-        <a type="button" class="btn btn-warning" th:href="@{'/vacancy/edit?vacancyId='+${vacancy.getId()}}"> Edit </a>
-        <input type="hidden" name="vacancyId" th:value="${vacancy.getId()}">
-        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Delete
-        </button>
-
+        <th:block sec:authorize="hasAnyRole('EMPLOYER')">
+            <a type="button" class="btn btn-warning" th:href="@{'/vacancy/edit?vacancyId='+${vacancy.getId()}}">
+                Edit </a>
+            <input type="hidden" name="vacancyId" th:value="${vacancy.getId()}">
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Delete
+            </button>
+        </th:block>
+    </form>
+    <form sec:authorize="${hasAnyRole('USER')}" method="post" action="/chat/create">
+        <input type="hidden" th:value="${vacancy.id}" name="vacancyId">
+        <input type="hidden" th:value="'http://localhost:8080/download?id='+${user.resume.id}" name="text">
+        <button type="submit" class="btn btn-success">Apply Now</button>
     </form>
 
     <form method="post" th:action="@{/vacancy/delete}">

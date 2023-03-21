@@ -43,11 +43,11 @@ public class ChatService {
     }
 
     public Chat getChatById(String chatId) {
-        return chatRepository.findChatById(chatId).orElse(null);
+        return chatRepository.findById(chatId).orElse(null);
     }
 
     public Chat getChatByVacancyId(String vacancyId) {
-        return chatRepository.getChatByVacancyId(vacancyId);
+        return chatRepository.findByVacancy_Id(vacancyId);
     }
 
 
@@ -69,7 +69,8 @@ public class ChatService {
         return null;
     }
 
-    public List<Chat> getUserChats(String userId) {
-        return chatRepository.findAllByUsersId(userId);
+    public List<Chat> getUserChats() {
+        String userId = userSession.getId();
+        return chatRepository.findByUsers_Id(userId);
     }
 }

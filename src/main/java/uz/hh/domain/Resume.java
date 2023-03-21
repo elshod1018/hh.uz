@@ -25,7 +25,7 @@ public class Resume {
 
     @Column(nullable = false)
     private String email;
-    @ManyToOne(cascade = CascadeType.ALL,
+    @OneToOne(cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)
     private User user;
     private String address;
