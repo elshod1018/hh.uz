@@ -13,7 +13,7 @@ public class ResumeService {
     private final ResumeRepository resumeRepository;
 
     public Resume findResumesByUser_Id(String id) {
-        return resumeRepository.findResumesByUser_Id(id);
+        return resumeRepository.findByUser_Id(id);
     }
 
     public Resume findById(String id) {

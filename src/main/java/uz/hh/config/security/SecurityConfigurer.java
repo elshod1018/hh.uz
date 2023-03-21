@@ -58,7 +58,7 @@ public class SecurityConfigurer {
                         httpSecurityLogoutConfigurer
                                 .logoutUrl("/auth/logout")
                                 .clearAuthentication(true)
-                                .deleteCookies("JSESSIONID", "rememberME")
+                                .deleteCookies("JSESSIONID", "rememberMe")
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout", "POST"))
                 )
                 .userDetailsService(authUserDetailsService)
@@ -67,7 +67,7 @@ public class SecurityConfigurer {
                                 .rememberMeParameter("rememberMe")
                                 .key("EWT$@WEFYG%H$ETGE@R!T#$HJYYT$QGRWHNJU%$TJRUYRHFRYFJRYUYRHD")
                                 .tokenValiditySeconds(10 * 24 * 60 * 60)// default is 30 minutes
-                                .rememberMeCookieName("rememberME")
+                                .rememberMeCookieName("rememberMe")
                 );
 
         return http.build();

@@ -24,7 +24,7 @@ public class Vacancy {
     @GeneratedValue(generator = "uuid2")
     private String id;
     @Builder.Default
-    @Column(name = "is_deleted",columnDefinition = "boolean default false", nullable = false)
+    @Column(name = "is_deleted", columnDefinition = "boolean default false", nullable = false)
     private boolean is_deleted = false;
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.EAGER,
@@ -47,10 +47,8 @@ public class Vacancy {
     @Enumerated(EnumType.STRING)
     @Builder.Default
     private EmploymentType emp_type = EmploymentType.FULL_TIME;
-
     @Column(nullable = false)
     private String region;
-
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     @Builder.Default
@@ -59,28 +57,22 @@ public class Vacancy {
     @Enumerated(EnumType.STRING)
     @Builder.Default
     private LanguageLevel language_level = LanguageLevel.NATIVE;
-
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Market market;
-
     @Column(nullable = false)
     @Builder.Default
     private double salary = 0;
-
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     @Builder.Default
     private Currency currency = Currency.SUM;
-
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     @Builder.Default
     private EducationLevel educationLevel = EducationLevel.NONE;
-
     @Column
     private String experienceYear;
-
     @Column
     private String description;
     @ManyToOne(cascade = CascadeType.ALL,

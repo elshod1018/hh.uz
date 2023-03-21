@@ -21,7 +21,8 @@
                 <p></p>
                 <hr>
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="title" name="title" placeholder="Title" required>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="Title" required
+                           value="Java Developer">
                     <label for="title">Title</label>
                 </div>
                 <div class="row; form-floating mb-3 ">
@@ -86,7 +87,8 @@
                 </div>
                 <div>
                     <label for="salary"> Salary </label>
-                    <input type="number" class="form-control" id="salary" name="salary" placeholder="Salary" required>
+                    <input type="number" class="form-control" id="salary" name="salary" placeholder="Salary" required
+                           value="10">
                 </div>
                 <div>
                     <label for="currency">Currency</label>
@@ -107,14 +109,13 @@
                 <div>
                     <label for="experience"> Years of Experience </label>
                     <input type="number" class="form-control" id="experience" placeholder="Experience"
-                           name="experienceYear"
-                           required>
+                           name="experienceYear" required value="1">
                 </div>
                 <div>
                     <label class="form-label" for="description"></label>
-                    <input class="form-control" id="description" name="description" required/>
+                    <input class="form-control" id="description" name="description" required value="Spring Boot">
                 </div>
-                <div>
+                <div style="margin:10px;">
                     <a class="btn btn-warning " th:href="@{/vacancy/main}"> Cancel</a>
                     <button type="submit" class="btn btn-success"> Save</button>
                 </div>
