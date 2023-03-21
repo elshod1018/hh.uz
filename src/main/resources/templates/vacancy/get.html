@@ -128,11 +128,10 @@
         <input type="hidden" th:value="'http://localhost:8080/download?id='+${user.resume.id}" name="text">
         <button type="submit" class="btn btn-success">Apply Now</button>
     </form>
-
-    <form method="post" th:action="@{/vacancy/delete}">
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="post" th:action="@{'/vacancy/delete?vacancyId='+${vacancy.getId()}}">
                     <div class="modal-header">
                         <input type="hidden" name="vacancyId" th:value="${vacancy.getId()}">
                         <h1 class="modal-title fs-5" id="exampleModalLabel">Job </h1>
@@ -147,10 +146,12 @@
                             Yes
                         </button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
-    </form>
+    </div>
 </div>
+
+<section th:replace="fragments :: js_links" ;
 </body>
 </html>

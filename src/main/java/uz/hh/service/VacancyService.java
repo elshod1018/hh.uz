@@ -29,11 +29,11 @@ public class VacancyService {
     public List<Vacancy> getAllVacancy() {
         User user = userSession.getUser();
         if (user == null) {
-            return vacancyRepository.findAll();
+            return vacancyRepository.findByIs_deletedFalse();
         } else if (user.getRole().equals(Role.USER)) {
-            return vacancyRepository.findAll();
+            return vacancyRepository.findByIs_deletedFalse();
         }
-        return vacancyRepository.findByEmployer_Id(user.getId());
+        return vacancyRepository.findByEmployer_IdAndIs_deletedFalse(user.getId());
     }
 
 

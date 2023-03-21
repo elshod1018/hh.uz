@@ -64,6 +64,20 @@ public class VacancyController {
         return "redirect:/home";
     }
 
+//    @GetMapping("/delete")
+//    @PreAuthorize("hasAnyRole('EMPLOYER')")
+//    public String deletePage(Model model, @ModelAttribute(name = "vacancyId") String vacancyId) {
+//        model.addAttribute("vacancy", vacancyService.getById(vacancyId));
+//        return "";
+//    }
+
+    @PostMapping("/delete")
+    @PreAuthorize("hasAnyRole('EMPLOYER')")
+    public String delete(@ModelAttribute(name = "vacancyId") String vacancyId) {
+        vacancyService.delete(vacancyId);
+        return "redirect:/home";
+    }
+
     @GetMapping("/getVacancy")
 //    @PreAuthorize("hasAnyRole('EMPLOYER')")
     public String getVacancy(@RequestParam(name = "vacancyId") String vacancyId, Model model) {
@@ -72,12 +86,5 @@ public class VacancyController {
         model.addAttribute("vacancy", vacancy);
         model.addAttribute("user", user);
         return "vacancy/get";
-    }
-
-    @PostMapping("/delete")
-    @PreAuthorize("hasAnyRole('EMPLOYER')")
-    public String delete(@ModelAttribute(name = "vacancyId") String vacancyId) {
-        vacancyService.delete(vacancyId);
-        return "redirect:/home";
     }
 }
