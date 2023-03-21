@@ -12,10 +12,11 @@ import uz.hh.repository.MessageRepository;
 public class MessageService {
     private final MessageRepository messageRepository;
 
-    public Message create(MessageCreateDTO dto, String ownerId) {
+    public Message create(MessageCreateDTO dto) {
         Message message = Message.builder()
-                .ownerId(ownerId)
+                .ownerId(dto.getOwnerId())
                 .text(dto.getText())
+                .chat(dto.getChat())
                 .build();
         return messageRepository.save(message);
     }

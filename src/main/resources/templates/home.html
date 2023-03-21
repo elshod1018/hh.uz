@@ -40,9 +40,9 @@
                     <a th:href="@{'/vacancy/getVacancy?vacancyId='+${vacancy.getId()}}" class="btn btn-success">
                         Show vacancy
                     </a>
-                    <form sec:authorize="${hasAnyRole('USER')}" method="post" action="/chat/create">
+                    <form sec:authorize="${hasAnyRole('USER')}" method="post" th:action="@{/chat/create}">
                         <input type="hidden" th:value="${vacancy.id}" name="vacancyId">
-                        <input type="hidden" th:value="'http://localhost:8080/download?id='+${user.resume.id}" name="text">
+                        <input type="hidden" th:value="'http://localhost:8080/download?id='+${user.id}" name="text">
                         <button type="submit" class="btn btn-success">Apply Now</button>
                     </form>
                 </div>

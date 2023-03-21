@@ -28,10 +28,12 @@ public class VacancyService {
 
     public List<Vacancy> getAllVacancy() {
         User user = userSession.getUser();
-        if (user == null || user.getRole().equals(Role.USER)) {
+        if (user == null) {
+            return vacancyRepository.findAll();
+        } else if (user.getRole().equals(Role.USER)) {
             return vacancyRepository.findAll();
         }
-        return vacancyRepository.findAllByEmployer(user);
+        return vacancyRepository.findByEmployer_Id(user.getId());
     }
 
 

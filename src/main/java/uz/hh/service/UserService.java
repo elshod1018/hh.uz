@@ -48,4 +48,8 @@ public class UserService {
         Optional<User> optionalUser = userRepository.findById(id);
         return optionalUser.orElse(null);
     }
+
+    public User update(User user) {
+        return userRepository.save(user);
+    }
 }

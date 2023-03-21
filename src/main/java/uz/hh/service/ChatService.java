@@ -18,27 +18,27 @@ import java.util.*;
 public class ChatService {
     private final ChatRepository chatRepository;
     private final VacancyService vacancyService;
-    private final MessageService messageService;
     private final UserSession userSession;
+    private final MessageService messageService;
+    private final UserService userService;
 
     public Chat chatCreate(ChatCreateDTO dto) {
         Vacancy vacancy = vacancyService.getById(dto.getVacancyId());
-        System.out.println(dto);
-        System.out.println(vacancy);
-        MessageCreateDTO messageCreateDTO = MessageCreateDTO.builder()
-                .text(dto.getText())
-                .build();
-        Set<Message> messages = Set.of(messageService.create(messageCreateDTO, userSession.getId()));
-        System.out.println(messages);
         Chat chat = Chat.builder()
                 .vacancy(vacancy)
-                .users(Set.of(vacancy.getEmployer(), userSession.getUser()))
-                .messages(messages)
+//                .users(Set.of(vacancy.getEmployer(), userSession.getUser()))
                 .status(VacancyStatus.APPLIED)
                 .build();
-        vacancy.getChats().add(chat);
         chat = chatRepository.save(chat);
-        System.out.println(chat);
+        User user = userSession.getUser();
+        user.getChats().add(chat);
+        userService.update(user);
+        MessageCreateDTO messageCreateDTO = MessageCreateDTO.builder()
+                .chat(chat)
+                .ownerId(userSession.getId())
+                .text(dto.getText())
+                .build();
+        messageService.create(messageCreateDTO);
         return chat;
     }
 
@@ -50,23 +50,24 @@ public class ChatService {
         return chatRepository.findByVacancy_Id(vacancyId);
     }
 
-
-    public Chat update(ChatUpdateDTO dto, String chatId) {
+    public boolean update(ChatUpdateDTO dto, String chatId) {
         Chat chatById = getChatById(chatId);
         if (chatById != null) {
             chatById.setUpdatedAt(LocalDateTime.now());
-            Message message = Message.builder()
-                    .text(dto.getText())
-                    .build();
-            chatById.getMessages().add(message);
             String dtoStatus = dto.getStatus();
             if (dtoStatus != null) {
                 VacancyStatus status = VacancyStatus.valueOf(dtoStatus.toUpperCase());
                 chatById.setStatus(status);
             }
-            return chatRepository.save(chatById);
+            MessageCreateDTO messageCreateDTO = MessageCreateDTO.builder()
+                    .text(dto.getText())
+                    .chat(chatById)
+                    .ownerId(userSession.getId())
+                    .build();
+            messageService.create(messageCreateDTO);
+            return true;
         }
-        return null;
+        return false;
     }
 
     public List<Chat> getUserChats() {
