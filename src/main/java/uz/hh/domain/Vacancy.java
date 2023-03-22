@@ -75,7 +75,7 @@ public class Vacancy {
     private String experienceYear;
     @Column
     private String description;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private User employer;
 
 }

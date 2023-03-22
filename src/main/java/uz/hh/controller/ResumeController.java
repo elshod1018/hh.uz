@@ -2,6 +2,7 @@ package uz.hh.controller;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +22,8 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/resume")
 @RequiredArgsConstructor
+@PreAuthorize("hasAnyRole('USER')")
 public class ResumeController {
-
     private final ResumeMapper resumeMapper;
     private final UserService userService;
     private final ResumeService resumeService;
@@ -30,7 +31,7 @@ public class ResumeController {
     private final UserRepository userRepository;
     private final UserSession userSession;
 
-    @GetMapping(value = "")
+    @GetMapping(value = "/create")
     public String create(Model model) {
         String userId = userSession.getId();
         Resume resume = resumeService.findResumesByUser_Id(userId);
@@ -39,6 +40,15 @@ public class ResumeController {
             return "/resume/Cv_2";
         }
         return "/resume/Cv";
+
+    }
+    @PostMapping(value = "/create")
+    public String create(@ModelAttribute CreateResumeDto dto) {
+        Resume resume = resumeMapper.fromCreateDto(dto);
+        User user = userSession.getUser();
+        resume.setUser(user);
+        repository.save(resume);
+        return "redirect:/home";
 
     }
 
@@ -66,15 +76,7 @@ public class ResumeController {
 
     }
 
-    @PostMapping(value = "")
-    public String create(@ModelAttribute CreateResumeDto dto) {
-        Resume resume = resumeMapper.fromCreateDto(dto);
-        User user = userSession.getUser();
-        resume.setUser(user);
-        repository.save(resume);
-        return "/resume/simple";
 
-    }
 
 
 }

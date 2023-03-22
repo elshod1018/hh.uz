@@ -23,7 +23,7 @@ public class Message implements Comparable<LocalDateTime> {
     private String id;
     @Column(nullable = false, name = "owner_id")
     private String ownerId;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Chat chat;
     @Column(nullable = false)
     private String text;
