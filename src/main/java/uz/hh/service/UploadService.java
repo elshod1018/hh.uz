@@ -37,22 +37,6 @@ public class UploadService {
         return createAndGet(dto).getId();
     }
 
-    public boolean update(UploadUpdateDTO dto) {
-        return false;
-    }
-
-    public boolean delete(String s) {
-        return false;
-    }
-
-    public UploadDTO get(String s) {
-        return null;
-    }
-
-    public List<UploadDTO> getAll() {
-        return null;
-    }
-
     public Upload createAndGet(UploadCreateDTO dto) {
         MultipartFile file = dto.getFile();
         Upload upload = Upload.builder()
