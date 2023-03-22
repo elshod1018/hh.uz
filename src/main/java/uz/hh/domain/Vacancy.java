@@ -23,18 +23,11 @@ public class Vacancy {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @GeneratedValue(generator = "uuid2")
     private String id;
-    @Builder.Default
-    @Column(name = "is_deleted", columnDefinition = "boolean default false", nullable = false)
-    private boolean is_deleted = false;
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.EAGER,
             mappedBy = "vacancy")
     @Builder.Default
     private Set<Chat> chats = new HashSet<>();
-    @Column(name = "created_at", nullable = false, columnDefinition = "timestamp default now()")
-    @Builder.Default
-    @CreationTimestamp
-    private LocalDateTime createdAt = LocalDateTime.now();
     @Column(name = "company_name")
     private String companyName;
     @Column(nullable = false)
@@ -61,8 +54,7 @@ public class Vacancy {
     @Enumerated(EnumType.STRING)
     private Market market;
     @Column(nullable = false)
-    @Builder.Default
-    private double salary = 0;
+    private double salary ;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     @Builder.Default
@@ -77,5 +69,10 @@ public class Vacancy {
     private String description;
     @ManyToOne(fetch = FetchType.EAGER)
     private User employer;
+    @Column(name = "is_deleted")
+    private boolean is_deleted;
+    @Column(name = "created_at", nullable = false, columnDefinition = "timestamp default now()")
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 
 }

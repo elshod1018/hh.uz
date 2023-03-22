@@ -8,11 +8,9 @@ import uz.hh.domain.User;
 import uz.hh.domain.Vacancy;
 import uz.hh.dto.VacancyCreateDto;
 import uz.hh.enums.Role;
-import uz.hh.repository.UserRepository;
 import uz.hh.repository.VacancyRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,18 +20,17 @@ public class VacancyService {
     private final UserService userService;
 
     public Vacancy getById(String vacancyId) {
-        Optional<Vacancy> optionalVacancy = vacancyRepository.findById(vacancyId);
-        return optionalVacancy.orElse(null);
+        return vacancyRepository.findById(vacancyId).orElse(null);
     }
 
     public List<Vacancy> getAllVacancy() {
         User user = userSession.getUser();
         if (user == null) {
-            return vacancyRepository.findByIs_deletedFalse();
-        } else if (user.getRole().equals(Role.USER)) {
-            return vacancyRepository.findByIs_deletedFalse();
+            return vacancyRepository.findAll();
+        } else if (Role.USER.equals(user.getRole())) {
+            return vacancyRepository.findAll();
         }
-        return vacancyRepository.findByEmployer_IdAndIs_deletedFalse(user.getId());
+        return vacancyRepository.findByEmployerId(user.getId());
     }
 
 
@@ -57,7 +54,6 @@ public class VacancyService {
                 .market(dto.getMarket())
                 .employer(user)
                 .build();
-        System.out.println(vacancy);
         return vacancyRepository.save(vacancy);
     }
 
@@ -67,10 +63,10 @@ public class VacancyService {
     }
 
     public Vacancy update(VacancyCreateDto dto, String vacancyId) {
-        User user = userSession.getUser();
-        Vacancy vacancy;
+
         try {
-            vacancy = vacancyRepository.findById(vacancyId)
+            User user = userSession.getUser();
+            Vacancy vacancy= vacancyRepository.findById(vacancyId)
                     .orElseThrow(() -> new NotFoundException("Vacancy not found with id " + vacancyId));
             vacancy.setTitle(dto.getTitle());
             vacancy.setCompanyName(user.getCompanyName());

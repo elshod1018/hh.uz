@@ -16,23 +16,20 @@ import java.util.Set;
 @Builder
 @Entity
 @ToString
-public class Message implements Comparable<LocalDateTime> {
+public class Message  {
     @Id
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @GeneratedValue(generator = "uuid2")
     private String id;
     @Column(nullable = false, name = "owner_id")
     private String ownerId;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     private Chat chat;
     @Column(nullable = false)
     private String text;
-    @Builder.Default
+
     @CreationTimestamp
     @Column(columnDefinition = "timestamp default now()", name = "created_at", nullable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
-        @Override
-    public int compareTo(LocalDateTime localDateTime) {
-        return 0;
-    }
+    private LocalDateTime createdAt;
+
 }

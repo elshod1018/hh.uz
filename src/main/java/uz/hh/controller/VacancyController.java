@@ -20,26 +20,27 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/vacancy")
+@PreAuthorize("hasRole('EMPLOYER')")
 public class VacancyController {
     private final VacancyService vacancyService;
     private final UserSession userSession;
     private final UserService userService;
 
     @GetMapping("/main")
-    @PreAuthorize("hasAnyRole('EMPLOYER')")
+    @PreAuthorize("hasRole('EMPLOYER')")
     public String main() {
         return "vacancy/main";
     }
 
     @GetMapping("/create")
-    @PreAuthorize("hasAnyRole('EMPLOYER')")
+    @PreAuthorize("hasRole('EMPLOYER')")
     public String create(Model model) {
         model.addAttribute("localDate", LocalDate.now());
         return "vacancy/create";
     }
 
     @PostMapping("/create")
-    @PreAuthorize("hasAnyRole('EMPLOYER')")
+    @PreAuthorize("hasRole('EMPLOYER')")
     public String create(@ModelAttribute VacancyCreateDto dto) {
         Vacancy savedVacancy = vacancyService.create(dto);
         return "redirect:/vacancy/getVacancy?vacancyId=" + savedVacancy.getId();
@@ -47,7 +48,7 @@ public class VacancyController {
     }
 
     @GetMapping("/edit")
-    @PreAuthorize("hasAnyRole('EMPLOYER')")
+    @PreAuthorize("hasRole('EMPLOYER')")
     public String edit(@RequestParam(name = "vacancyId") String vacancyId, Model model) {
         Vacancy vacancy = vacancyService.getById(vacancyId);
         model.addAttribute("vacancy", vacancy);
@@ -56,7 +57,7 @@ public class VacancyController {
     }
 
     @PostMapping("/edit")
-    @PreAuthorize("hasAnyRole('EMPLOYER')")
+    @PreAuthorize("hasRole('EMPLOYER')")
     public String edit(@ModelAttribute VacancyCreateDto dto, @RequestParam(name = "vacancyId") String vacancyId) {
 //        String  vacancyId = (String) model.getAttribute("vacancyId");
         Vacancy updatedVacancy = vacancyService.update(dto, vacancyId);
@@ -65,21 +66,21 @@ public class VacancyController {
     }
 
 //    @GetMapping("/delete")
-//    @PreAuthorize("hasAnyRole('EMPLOYER')")
+//    @PreAuthorize("hasRole('EMPLOYER')")
 //    public String deletePage(Model model, @ModelAttribute(name = "vacancyId") String vacancyId) {
 //        model.addAttribute("vacancy", vacancyService.getById(vacancyId));
 //        return "";
 //    }
 
     @PostMapping("/delete")
-    @PreAuthorize("hasAnyRole('EMPLOYER')")
+    @PreAuthorize("hasRole('EMPLOYER')")
     public String delete(@ModelAttribute(name = "vacancyId") String vacancyId) {
         vacancyService.delete(vacancyId);
         return "redirect:/home";
     }
 
     @GetMapping("/getVacancy")
-//    @PreAuthorize("hasAnyRole('EMPLOYER')")
+    @PreAuthorize("permitAll()")
     public String getVacancy(@RequestParam(name = "vacancyId") String vacancyId, Model model) {
         User user = userSession.getUser();
         Vacancy vacancy = vacancyService.getById(vacancyId);

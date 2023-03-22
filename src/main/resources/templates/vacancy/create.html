@@ -35,9 +35,8 @@
                         <label for="emp_form">Employment Form</label>
                         <select class="form-select" id="emp_form" aria-label="Default select example" name="emp_form"
                                 required>
-                            <th:block th:each="e_form : ${T(uz.hh.enums.EmploymentForm).values()}">
-                                <option th:value="${e_form}" th:text="${e_form.getDisplayValue()}"/>
-                            </th:block>
+                            <option th:each="e_form : ${T(uz.hh.enums.EmploymentForm).values()}" th:value="${e_form}"
+                                    th:text="${e_form.getDisplayValue()}"/>
                         </select>
                     </div>
                     <div>
@@ -52,10 +51,8 @@
                         <label for="region">Region</label>
                         <select class="form-select" aria-label="Default select example" id="region" name="region"
                                 required>
-                            <th:block th:each="region : ${T(uz.hh.enums.RegionVacancy).values()}">
-                                <option th:value="${region}" th:text="${region.getDisplayValue()}"/>
-                            </th:block>
-                            >
+                            <option th:each="region : ${T(uz.hh.enums.RegionVacancy).values()}" th:value="${region}"
+                                    th:text="${region.getDisplayValue()}"/>
                         </select>
                     </div>
                 </div>

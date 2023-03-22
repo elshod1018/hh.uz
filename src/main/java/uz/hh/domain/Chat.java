@@ -30,7 +30,7 @@ public class Chat {
             fetch = FetchType.EAGER,
             mappedBy = "chat")
     @Builder.Default
-    private Set<Message> messages = new TreeSet<>();
+    private Set<Message> messages = new HashSet<>();
     @Builder.Default
     @Enumerated(EnumType.STRING)
     private VacancyStatus status = VacancyStatus.APPLIED;

@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
-import uz.hh.domain.User;
 import uz.hh.domain.Vacancy;
 
 import java.util.List;
@@ -16,10 +15,10 @@ public interface VacancyRepository extends JpaRepository<Vacancy, String> {
     void updateIs_deletedById(String vacancyId);
 
     @Query("select v from Vacancy v where v.is_deleted = false")
-    List<Vacancy> findByIs_deletedFalse();
+    List<Vacancy> findAll();
 
 
     @Query("select v from Vacancy v where v.employer.id = ?1 and v.is_deleted = false")
-    List<Vacancy> findByEmployer_IdAndIs_deletedFalse(String id);
+    List<Vacancy> findByEmployerId(String id);
 
 }

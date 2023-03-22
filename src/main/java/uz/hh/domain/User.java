@@ -61,15 +61,13 @@ public class User {
     private String region;
     @Column(name = "company_name")
     private String companyName;
-    @Column(name = "phone_number", unique = true)
+    @Column(name = "phone_number", unique = true, nullable = false)
     private String phoneNumber;
-    @Builder.Default
-    @Column(name = "is_deleted", nullable = false, columnDefinition = "boolean default false")
-    private boolean is_deleted = false;
+    @Column(name = "is_deleted")
+    private boolean is_deleted;
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, columnDefinition = "timestamp default now()")
-    @Builder.Default
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime createdAt;
 
 }
 

@@ -15,6 +15,7 @@
                   style="color: blue"></span><br>
             <a th:href="@{'/chat/message?chatId='+${chat.id}}" th:color="blue" class="link-info"
                th:text="${chat.vacancy.title}"></a><br>
+<!--            <p sec:authorize="hasAnyRole('EMPLOYER')" th:each="user:${chat.users}" th:if="${!sessionUser.id eq user.id}" th:text="${user.getEmail()}"></p>-->
             <span th:text="${chat.vacancy.companyName}"></span>
         </div>
     </div>

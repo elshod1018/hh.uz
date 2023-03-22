@@ -13,6 +13,5 @@ import uz.hh.enums.VacancyStatus;
 @Builder
 public class ChatUpdateDTO {
     private String text;
-    @Nullable
     private String status;
 }

@@ -3,6 +3,7 @@ package uz.hh.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDateTime;
@@ -35,11 +36,10 @@ public class Resume {
     private String experience;
     @Column(name = "tech_skill")
     private String tech_skill;
-    @Builder.Default
-    @Column(name = "is_deleted", nullable = false)
-    private boolean is_deleted = false;
+    @Column(name = "is_deleted")
+    private boolean is_deleted ;
+    @CreationTimestamp
     @Column(name = "created_at", nullable = false, columnDefinition = "timestamp default now()")
-    @Builder.Default
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime createdAt;
 
 }

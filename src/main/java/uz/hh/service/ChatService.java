@@ -51,7 +51,7 @@ public class ChatService {
     }
 
     public List<Chat> getChatByVacancyId(String vacancyId) {
-        return chatRepository.findByVacancy_Id(vacancyId);
+        return chatRepository.findAllByVacancyId(vacancyId);
     }
 
     public boolean update(ChatUpdateDTO dto, String chatId) {
@@ -59,10 +59,8 @@ public class ChatService {
         if (chatById != null) {
             chatById.setUpdatedAt(LocalDateTime.now());
             String dtoStatus = dto.getStatus();
-            System.out.println(dtoStatus);
             if (dtoStatus != null) {
                 VacancyStatus status = VacancyStatus.valueOf(dtoStatus.toUpperCase());
-                System.out.println(status);
                 chatById.setStatus(status);
             }
             chatById = chatRepository.save(chatById);
@@ -79,6 +77,6 @@ public class ChatService {
 
     public List<Chat> getUserChats() {
         String userId = userSession.getId();
-        return chatRepository.findByUsers_Id(userId);
+        return chatRepository.findAllByUserId(userId);
     }
 }
