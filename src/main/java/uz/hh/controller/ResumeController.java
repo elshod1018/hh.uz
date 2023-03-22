@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import uz.hh.config.security.UserSession;
 import uz.hh.domain.Resume;
 import uz.hh.domain.User;
 import uz.hh.dto.CreateResumeDto;
@@ -27,10 +28,12 @@ public class ResumeController {
     private final ResumeService resumeService;
     private final ResumeRepository repository;
     private final UserRepository userRepository;
+    private final UserSession userSession;
 
-    @GetMapping(value = "/{id}")
-    public String create(Model model, @PathVariable String id) {
-        Resume resume = resumeService.findResumesByUser_Id(id);
+    @GetMapping(value = "")
+    public String create(Model model) {
+        String userId = userSession.getId();
+        Resume resume = resumeService.findResumesByUser_Id(userId);
         model.addAttribute("resume", resume);
         if (resume != null) {
             return "/resume/Cv_2";
@@ -39,8 +42,9 @@ public class ResumeController {
 
     }
 
-    @PostMapping(value = "/update/{id}")
-    public String update(@ModelAttribute CreateResumeDto dto, @PathVariable String id) {
+    @PostMapping(value = "/update")
+    public String update(@ModelAttribute CreateResumeDto dto) {
+        String id = userSession.getId();
         Resume resume1 = resumeService.findResumesByUser_Id(id);
         Resume resume = resumeService.findById(resume1.getId());
         if (resume != null) {
@@ -62,13 +66,11 @@ public class ResumeController {
 
     }
 
-    @PostMapping(value = "/{id}")
-    public String create(@ModelAttribute CreateResumeDto dto, @PathVariable String id) {
+    @PostMapping(value = "")
+    public String create(@ModelAttribute CreateResumeDto dto) {
         Resume resume = resumeMapper.fromCreateDto(dto);
-        User user = userService.findById(id);
-        if (user != null) {
-            resume.setUser(user);
-        }
+        User user = userSession.getUser();
+        resume.setUser(user);
         repository.save(resume);
         return "/resume/simple";
 

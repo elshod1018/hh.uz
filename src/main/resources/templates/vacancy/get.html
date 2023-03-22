@@ -123,11 +123,12 @@
             </button>
         </th:block>
     </form>
-    <form sec:authorize="${hasAnyRole('USER')}" method="post" action="/chat/create">
+    <form sec:authorize="${hasAnyRole('USER')}" method="post" th:action="@{'/chat/create'}">
         <input type="hidden" th:value="${vacancy.id}" name="vacancyId">
-        <input type="hidden" th:value="'http://localhost:8080/download?id='+${user.resume.id}" name="text">
+        <input type="hidden" th:value="'http://localhost:8080/download?id='+${user.id}" name="text">
         <button type="submit" class="btn btn-success">Apply Now</button>
     </form>
+
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

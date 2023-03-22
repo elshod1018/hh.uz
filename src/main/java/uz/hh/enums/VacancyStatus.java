@@ -1,5 +1,7 @@
 package uz.hh.enums;
 
 public enum VacancyStatus {
-    APPLIED, ACCEPT, REJECT
+    APPLIED,
+    ACCEPT,
+    REJECT
 }

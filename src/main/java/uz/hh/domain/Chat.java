@@ -7,8 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 import uz.hh.enums.VacancyStatus;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @Setter
@@ -21,11 +20,9 @@ public class Chat {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @GeneratedValue(generator = "uuid2")
     private String id;
-    @ManyToMany(cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER,
-            mappedBy = "chats")
+    @ManyToMany(mappedBy = "chats", fetch = FetchType.EAGER)
     @Builder.Default
-    private Set<User> users=new HashSet<>();
+    private Set<User> users = new HashSet<>();
 
     @ManyToOne
     private Vacancy vacancy;
@@ -33,7 +30,7 @@ public class Chat {
             fetch = FetchType.EAGER,
             mappedBy = "chat")
     @Builder.Default
-    private Set<Message> messages=new HashSet<>();
+    private Set<Message> messages = new TreeSet<>();
     @Builder.Default
     @Enumerated(EnumType.STRING)
     private VacancyStatus status = VacancyStatus.APPLIED;

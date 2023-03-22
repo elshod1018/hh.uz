@@ -124,10 +124,10 @@
         <div>
 
 
-            <br>
-            <label for="myfile" style="color: blue; font-size: 20px">Add Photo</label>
-            <input type="file" id="myfile" name="myfile">
-            <img id="img" height="150">
+<!--            <br>-->
+<!--            <label for="myfile" style="color: blue; font-size: 20px">Add Photo</label>-->
+<!--            <input type="file" id="myfile" name="myfile">-->
+<!--            <img id="img" height="150">-->
 
             <br> <br> <hr> <hr>
         </div>
@@ -152,8 +152,8 @@
         </table>
         <p> *Note</p>
         <p style="text-align: right">
-            <button  class="btn btn-primary" id="createrow" onclick="myCreateFunction()">Create Row</button>
-            <button  class="btn btn-danger" id="deleterow" onclick="myDeleteFunction()">Delete Row</button>
+            <button  type="button" class="btn btn-primary" id="createrow" onclick="myCreateFunction()">Create Row</button>
+            <button  type="button"  class="btn btn-danger" id="deleterow" onclick="myDeleteFunction()">Delete Row</button>
         </p>
     </div>
     <hr> <hr>
@@ -169,8 +169,8 @@
         </table>
         <p> *Note</p>
         <p style="text-align: right">
-            <button  class="btn btn-primary" id="createrowlang" onclick="myCreateFunctionLang()">Create Row</button>
-            <button  class="btn btn-danger" id="deleterowlang" onclick="myDeleteFunctionLang()">Delete Row</button>
+            <button type="button"  class="btn btn-primary" id="createrowlang" onclick="myCreateFunctionLang()">Create Row</button>
+            <button  type="button"  class="btn btn-danger" id="deleterowlang" onclick="myDeleteFunctionLang()">Delete Row</button>
         </p>
     </div>
     <hr> <hr>
@@ -185,8 +185,8 @@
         </table>
         <p>*Note</p>
         <p style="text-align: right">
-            <button  class="btn btn-primary" id="createrowlink" onclick="myCreateFunctionLink()">Create Row</button>
-            <button  class="btn btn-danger" id="deleterowlink" onclick="myDeleteFunctionLink()">Delete Row</button>
+            <button  type="button" class="btn btn-primary" id="createrowlink" onclick="myCreateFunctionLink()">Create Row</button>
+            <button type="button"  class="btn btn-danger" id="deleterowlink" onclick="myDeleteFunctionLink()">Delete Row</button>
         </p>
     </div>
     <hr> <hr>
@@ -320,10 +320,10 @@
     let ylink=0;
     let sum=0;
     let sum2=0;
-    var doc=new jsPDF();
+
     function genPDF(){
 
-
+        var doc=new jsPDF();
         doc.setFontType("bold");
         let elementById = document.getElementById("f_name");
         doc.text(20,20,elementById.value+" "+document.getElementById("l_name").value);
@@ -333,11 +333,6 @@
         doc.text(20,42,"Address:  "+document.getElementById("address").value);
         doc.text(20,48,"Phone Number:  "+document.getElementById("phone").value);
         doc.text(20,54,"Job:  "+document.getElementById("job").value);
-
-        var niceimage = new Image();
-        niceimage.src = 'https://www.vectorstock.com/royalty-free-vector/man-avatar-profile-vector-21372076';
-        doc.addImage(niceimage, 'JPEG', 132, 10, 70, 55);
-
         doc.setFontType("bold");
         doc.setFontSize(16);
 
@@ -350,8 +345,6 @@
         // doc.setLineWidth(1/72);
         // doc.line(0.5,0.5,0.5,11.25);
         // doc.line(7.75,0.5,7.75,11.25);
-
-
 
         doc.text(20,70,"Profile");
         doc.setFontType("normal");

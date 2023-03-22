@@ -89,7 +89,7 @@
 </head>
 <body>
 <h1 style="text-align:center;">Resume Page</h1>
-<form th:action="@{'/resume/update/'+${resume.getUser().getId()}}"  method="post">
+<form th:action="@{/resume/update}"  method="post">
     <div class="PersonalInfo" id="perso">
         <div class="box1">
             <div>
@@ -400,8 +400,6 @@
         var strArr2 = doc.splitTextToSize(p1, 182)
         doc.text(strArr2, 20, y+=8);
         doc.save(elementById.value+".pdf");
-
-
 
     }
 </script>

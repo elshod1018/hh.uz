@@ -67,10 +67,10 @@
                         </a>
                     </li>
                 </ul>
-                <form sec:authorize="isAuthenticated() and hasAnyRole('USER')" method="post" action="/home"
+                <form sec:authorize="hasAnyRole('USER')" method="post" action="/home"
                       class="d-flex me-auto" role="search">
                     <input class="form-control me-2" type="search" aria-label="Search"
-                           th:placeholder="#{fragments.search}">
+                           th:placeholder="#{fragments.search}" name="search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
 

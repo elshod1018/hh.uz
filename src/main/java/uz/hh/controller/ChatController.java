@@ -13,12 +13,10 @@ import uz.hh.enums.Role;
 import uz.hh.enums.Status;
 import uz.hh.enums.VacancyStatus;
 import uz.hh.service.ChatService;
+import uz.hh.service.VacancyService;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 @RequestMapping("/chat")
@@ -26,6 +24,7 @@ import java.util.Set;
 public class ChatController {
     private final UserSession userSession;
     private final ChatService chatService;
+    private final VacancyService vacancyService;
 
     @GetMapping("/userchats")
     public String userChatPage(Model model) {
@@ -36,7 +35,24 @@ public class ChatController {
 
     @PostMapping("/create")
     @PreAuthorize("hasAnyRole('USER')")
-    public String create(@ModelAttribute ChatCreateDTO dto) {
+    public String create(Model model, @ModelAttribute ChatCreateDTO dto) {
+        String vacancyId = dto.getVacancyId();
+        List<Chat> chatsByVacancyId = chatService.getChatByVacancyId(vacancyId);
+        Chat chat1 = chatsByVacancyId.stream()
+                .filter(chat -> {
+                    Set<User> users = chat.getUsers();
+                    User user1 = users.stream()
+                            .filter(user -> user.getId().equals(userSession.getId()))
+                            .findFirst()
+                            .orElse(null);
+                    return user1 != null;
+                })
+                .findFirst()
+                .orElse(null);
+        if (chat1 != null) {
+            model.addAttribute("chat", chat1);
+            return "redirect:/chat/message?chatId=" + chat1.getId();
+        }
         Chat chat = chatService.chatCreate(dto);
         return "redirect:/chat/userchats";
     }
@@ -44,7 +60,6 @@ public class ChatController {
     @GetMapping("/message")
     public String messagePage(Model model, @RequestParam(name = "chatId") String chatId) {
         Chat chat = chatService.getChatById(chatId);
-        System.out.println(chat + " : " + chatId);
         if (Objects.isNull(chat)) {
             return "redirect:/chat/userchats";
         }
@@ -54,6 +69,7 @@ public class ChatController {
 
     @PostMapping("/message")
     public String message(@ModelAttribute ChatUpdateDTO dto, @RequestParam(name = "chatId") String chatId) {
+        System.out.println(dto);
         chatService.update(dto, chatId);
         return "redirect:/chat/message?chatId=" + chatId;
     }

@@ -25,8 +25,7 @@ public class Resume {
 
     @Column(nullable = false)
     private String email;
-    @OneToOne(cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER)
+    @OneToOne
     private User user;
     private String address;
     @Column(name = "phone_number")

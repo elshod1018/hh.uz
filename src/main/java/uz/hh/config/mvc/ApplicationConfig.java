@@ -14,6 +14,7 @@ public class ApplicationConfig extends AbstractAnnotationConfigDispatcherServlet
     protected Class<?>[] getServletConfigClasses() {
         return new Class[]{MvcConfiguration.class};
     }
+
     @Override
     protected String[] getServletMappings() {
         return new String[]{"/"};
@@ -21,6 +22,6 @@ public class ApplicationConfig extends AbstractAnnotationConfigDispatcherServlet
 
     @Override
     protected void customizeRegistration(ServletRegistration.Dynamic registration) {
-        registration.setMultipartConfig(new MultipartConfigElement("/home/madina/apps/hh/upload/"));
+        registration.setMultipartConfig(new MultipartConfigElement(System.getProperty("user.home") + "/apps/uploads/"));
     }
 }
